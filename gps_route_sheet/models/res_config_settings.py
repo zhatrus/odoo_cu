@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import api, fields, models
+from odoo.exceptions import UserError
 
 
 class ResConfigSettings(models.TransientModel):
@@ -9,3 +10,22 @@ class ResConfigSettings(models.TransientModel):
     gps_db_name = fields.Char(config_parameter="gps_route_sheet.db_name")
     gps_db_user = fields.Char(config_parameter="gps_route_sheet.db_user")
     gps_db_password = fields.Char(config_parameter="gps_route_sheet.db_password")
+
+    @api.model
+    def action_test_gps_db_connection(self):
+        try:
+            self.env["gps.db.service"].test_connection()
+        except UserError:
+            raise
+        except Exception as exc:
+            raise UserError(f"GPS database connection failed: {exc}") from exc
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": "GPS Route Sheet",
+                "message": "Connection successful.",
+                "type": "success",
+                "sticky": False,
+            },
+        }

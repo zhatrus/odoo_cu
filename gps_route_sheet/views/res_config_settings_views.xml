@@ -16,10 +16,13 @@
                                 <div class="text-muted">External GPS database connection.</div>
                                 <div class="mt16">
                                     <field name="gps_db_host" placeholder="Host"/>
-                                    <field name="gps_db_port" placeholder="Port"/>
+                                    <field name="gps_db_port" placeholder="Port" options="{'grouping': false}"/>
                                     <field name="gps_db_name" placeholder="Database"/>
                                     <field name="gps_db_user" placeholder="User"/>
                                     <field name="gps_db_password" placeholder="Password" password="True"/>
+                                </div>
+                                <div class="mt16">
+                                    <button name="action_test_gps_db_connection" type="object" string="Test Connection" class="btn-secondary"/>
                                 </div>
                             </div>
                         </div>

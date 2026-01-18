@@ -71,3 +71,8 @@ class GpsDbService(models.AbstractModel):
             with conn.cursor() as cursor:
                 cursor.execute(query)
                 return cursor.fetchall()
+
+    def test_connection(self):
+        params = self._get_db_params()
+        with psycopg2.connect(**params):
+            return True
