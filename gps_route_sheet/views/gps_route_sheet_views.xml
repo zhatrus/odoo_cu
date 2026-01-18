@@ -99,7 +99,7 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_gps_root" name="GPS Route Sheets" parent="fleet.fleet_menu_root" sequence="80"/>
+    <menuitem id="menu_gps_root" name="GPS Route Sheets" parent="base.menu_custom" sequence="80"/>
     <menuitem id="menu_gps_route_sheet" name="Route Sheets" parent="menu_gps_root" action="action_gps_route_sheet" sequence="10"/>
     <menuitem id="menu_gps_trip_purpose" name="Trip Purposes" parent="menu_gps_root" action="action_gps_trip_purpose" sequence="20"/>
 </odoo>
