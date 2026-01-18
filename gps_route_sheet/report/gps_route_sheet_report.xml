@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_report_gps_route_sheet" model="ir.actions.report">
+        <field name="name">GPS Route Sheet</field>
+        <field name="model">gps.route.sheet</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">gps_route_sheet.report_gps_route_sheet</field>
+        <field name="report_file">gps_route_sheet.report_gps_route_sheet</field>
+        <field name="print_report_name">'Route Sheet - %s' % (object.name)</field>
+    </record>
+
+    <template id="report_gps_route_sheet">
+        <t t-call="web.external_layout">
+            <div class="page">
+                <h2 class="text-center">МАРШРУТНИЙ ЛИСТ</h2>
+                <p class="text-center"><strong t-esc="o.name"/></p>
+                <table class="table table-sm">
+                    <tr>
+                        <td><strong>Автомобіль</strong></td>
+                        <td t-esc="o.vehicle_id.display_name"/>
+                        <td><strong>Водій</strong></td>
+                        <td t-esc="o.driver_name or ''"/>
+                    </tr>
+                    <tr>
+                        <td><strong>Період</strong></td>
+                        <td colspan="3">
+                            <span t-esc="o.date_from"/> — <span t-esc="o.date_to"/>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="table table-bordered table-sm">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Маршрут</th>
+                            <th>Мета</th>
+                            <th>Місто, км</th>
+                            <th>За містом, км</th>
+                            <th>Всього, км</th>
+                            <th>Коеф. місто</th>
+                            <th>Коеф. поза містом</th>
+                            <th>Паливо, л</th>
+                            <th>Проєкт</th>
+                            <th>Вид заправки</th>
+                            <th>Користувач</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="o.trip_ids" t-as="trip">
+                            <tr>
+                                <td t-esc="trip.trip_date"/>
+                                <td t-esc="trip.route_description"/>
+                                <td>
+                                    <span t-esc="trip.trip_purpose_id.name_uk" t-if="trip.trip_purpose_id"/>
+                                    <span t-esc="trip.trip_purpose_other" t-if="trip.trip_purpose_other"/>
+                                </td>
+                                <td t-esc="trip.in_city_km"/>
+                                <td t-esc="trip.outside_city_km"/>
+                                <td t-esc="trip.total_km"/>
+                                <td t-esc="trip.city_coefficient"/>
+                                <td t-esc="trip.outside_coefficient"/>
+                                <td t-esc="trip.fuel_liters"/>
+                                <td t-esc="trip.project_name"/>
+                                <td t-esc="trip.payment_type"/>
+                                <td t-esc="trip.driver_name"/>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>
