@@ -13,7 +13,6 @@ class ResConfigSettings(models.TransientModel):
 
     @api.model
     def action_test_gps_db_connection(self, *args, **kwargs):
-        self.ensure_one()
         try:
             self.env["gps.db.service"].test_connection()
         except UserError:
