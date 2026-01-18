@@ -45,6 +45,7 @@ Valid approvals:
 - "approve"
 - "ok do it"
 - "run this"
+- "+"
 
 Any other response = NO ACTION.
 

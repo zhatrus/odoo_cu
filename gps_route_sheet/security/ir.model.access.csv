@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gps_route_sheet_user,gps.route.sheet user,model_gps_route_sheet,gps_route_sheet.group_gps_route_user,1,0,0,0
+access_gps_route_sheet_manager,gps.route.sheet manager,model_gps_route_sheet,gps_route_sheet.group_gps_route_manager,1,1,1,1
+access_gps_route_trip_user,gps.route.trip user,model_gps_route_trip,gps_route_sheet.group_gps_route_user,1,0,0,0
+access_gps_route_trip_manager,gps.route.trip manager,model_gps_route_trip,gps_route_sheet.group_gps_route_manager,1,1,1,1
+access_gps_trip_purpose_manager,gps.trip.purpose manager,model_gps_trip_purpose,gps_route_sheet.group_gps_route_manager,1,1,1,1
