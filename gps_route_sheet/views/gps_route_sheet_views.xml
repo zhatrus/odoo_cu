@@ -90,13 +90,13 @@
     <record id="action_gps_route_sheet" model="ir.actions.act_window">
         <field name="name">GPS Route Sheets</field>
         <field name="res_model">gps.route.sheet</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="action_gps_trip_purpose" model="ir.actions.act_window">
         <field name="name">Trip Purposes</field>
         <field name="res_model">gps.trip.purpose</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem id="menu_gps_root" name="GPS Route Sheets" parent="base.menu_custom" sequence="80"/>
