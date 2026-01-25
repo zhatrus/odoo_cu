@@ -72,7 +72,61 @@ class GpsDbService(models.AbstractModel):
                 cursor.execute(query)
                 return cursor.fetchall()
 
+    def fetch_last_position(self, imei):
+        """Fetch last GPS position for vehicle by IMEI."""
+        params = self._get_db_params()
+        query = """
+            SELECT
+                latitude,
+                longitude,
+                speed,
+                timestamp,
+                satellites,
+                odometer
+            FROM tracker_positions
+            WHERE imei = %s
+            ORDER BY timestamp DESC
+            LIMIT 1
+        """
+        with psycopg2.connect(**params) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(query, (imei,))
+                row = cursor.fetchone()
+                if row:
+                    return {
+                        "latitude": row[0],
+                        "longitude": row[1],
+                        "speed": row[2],
+                        "timestamp": row[3],
+                        "satellites": row[4],
+                        "odometer": row[5],
+                    }
+                return None
+
+    def fetch_vehicles(self):
+        """Fetch all vehicles from PostgreSQL database."""
+        params = self._get_db_params()
+        query = """
+            SELECT
+                id,
+                imei,
+                s_n,
+                reg_number,
+                vehicle_model,
+                fuel_card_number,
+                fuel_norm_l_100km,
+                sim_number,
+                alias
+            FROM vehicles
+            ORDER BY reg_number
+        """
+        with psycopg2.connect(**params) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(query)
+                return cursor.fetchall()
+
     def test_connection(self):
+        """Test connection to GPS PostgreSQL database."""
         params = self._get_db_params()
         with psycopg2.connect(**params):
             return True

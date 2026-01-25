@@ -1,12 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <record id="view_fleet_vehicle_form_gps_imei" model="ir.ui.view">
-        <field name="name">fleet.vehicle.form.gps.imei</field>
+    <!-- Add GPS fields to fleet.vehicle form view -->
+    <record id="view_fleet_vehicle_form_gps" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.gps</field>
         <field name="model">fleet.vehicle</field>
         <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
         <field name="arch" type="xml">
+            <!-- Add GPS tab after existing notebook pages -->
+            <xpath expr="//notebook" position="inside">
+                <page string="GPS Tracking" name="gps_tracking">
+                    <group>
+                        <group string="GPS Tracker Information">
+                            <field name="imei"/>
+                            <field name="gps_tracker_sn"/>
+                            <field name="sim_number"/>
+                            <field name="gps_alias"/>
+                        </group>
+                        <group string="Fuel Card">
+                            <field name="fuel_card_number"/>
+                            <field name="fuel_norm_l_100km"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Current GPS Position">
+                            <field name="gps_status" readonly="1"/>
+                            <field name="current_latitude" readonly="1"/>
+                            <field name="current_longitude" readonly="1"/>
+                            <field name="last_position_time" readonly="1"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add GPS fields to fleet.vehicle tree view -->
+    <record id="view_fleet_vehicle_tree_gps" model="ir.ui.view">
+        <field name="name">fleet.vehicle.tree.gps</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_tree"/>
+        <field name="arch" type="xml">
             <xpath expr="//field[@name='license_plate']" position="after">
+                <field name="imei" optional="show"/>
+                <field name="gps_status" optional="show"/>
+                <field name="last_position_time" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add GPS search filters -->
+    <record id="view_fleet_vehicle_search_gps" model="ir.ui.view">
+        <field name="name">fleet.vehicle.search.gps</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
                 <field name="imei"/>
+                <field name="fuel_card_number"/>
+                <filter string="Has GPS Tracker" name="has_gps" domain="[('imei', '!=', False)]"/>
+                <filter string="No GPS Tracker" name="no_gps" domain="[('imei', '=', False)]"/>
+                <filter string="GPS Active" name="gps_active" domain="[('gps_status', '=', 'Active')]"/>
             </xpath>
         </field>
     </record>
