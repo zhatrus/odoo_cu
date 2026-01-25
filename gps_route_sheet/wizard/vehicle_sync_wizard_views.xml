@@ -26,14 +26,4 @@
             </form>
         </field>
     </record>
-
-    <!-- Action to open Vehicle Sync Wizard in Actions menu -->
-    <record id="action_vehicle_sync_wizard" model="ir.actions.act_window">
-        <field name="name">Sync Vehicles from GPS</field>
-        <field name="res_model">vehicle.sync.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-        <field name="binding_model_id" ref="fleet.model_fleet_vehicle"/>
-        <field name="binding_view_types">list,form</field>
-    </record>
 </odoo>
