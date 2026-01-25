@@ -83,7 +83,7 @@ class FleetVehicle(models.Model):
                     vehicle.current_longitude = 0.0
                     vehicle.last_position_time = False
                     vehicle.gps_status = "No Data"
-            except Exception:
+            except (KeyError, TypeError, ValueError, ConnectionError):
                 vehicle.current_latitude = 0.0
                 vehicle.current_longitude = 0.0
                 vehicle.last_position_time = False
