@@ -125,6 +125,69 @@ class GpsDbService(models.AbstractModel):
                 cursor.execute(query)
                 return cursor.fetchall()
 
+    def fetch_last_position(self, imei):
+        """Fetch last GPS position for a vehicle by IMEI."""
+        params = self._get_db_params()
+        query = """
+            SELECT
+                latitude,
+                longitude,
+                speed,
+                timestamp,
+                satellites,
+                angle,
+                odometer,
+                ignition,
+                fuel,
+                battery
+            FROM tracker_positions
+            WHERE imei = %s
+            ORDER BY timestamp DESC
+            LIMIT 1
+        """
+        with psycopg2.connect(**params) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(query, (imei,))
+                row = cursor.fetchone()
+                if row:
+                    return {
+                        "latitude": row[0],
+                        "longitude": row[1],
+                        "speed": row[2],
+                        "timestamp": row[3],
+                        "satellites": row[4],
+                        "angle": row[5],
+                        "odometer": row[6],
+                        "ignition": row[7],
+                        "fuel": row[8],
+                        "battery": row[9],
+                    }
+                return None
+
+    def fetch_all_positions(self):
+        """Fetch last GPS positions for all vehicles."""
+        params = self._get_db_params()
+        query = """
+            SELECT DISTINCT ON (imei)
+                imei,
+                latitude,
+                longitude,
+                speed,
+                timestamp,
+                satellites,
+                angle,
+                odometer,
+                ignition,
+                fuel,
+                battery
+            FROM tracker_positions
+            ORDER BY imei, timestamp DESC
+        """
+        with psycopg2.connect(**params) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(query)
+                return cursor.fetchall()
+
     def test_connection(self):
         """Test connection to GPS PostgreSQL database."""
         params = self._get_db_params()
