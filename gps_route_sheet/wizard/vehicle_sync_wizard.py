@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 from odoo.exceptions import UserError
 
 
@@ -52,7 +52,7 @@ class VehicleSyncWizard(models.TransientModel):
 
             for vehicle_data in vehicles_data:
                 (
-                    pg_id,
+                    _pg_id,
                     imei,
                     s_n,
                     reg_number,
@@ -122,10 +122,10 @@ class VehicleSyncWizard(models.TransientModel):
                 },
             }
 
-        except UserError as e:
-            raise e
-        except (ConnectionError, KeyError, ValueError) as e:
-            raise UserError(f"Synchronization failed: {str(e)}") from e
+        except UserError as user_error:
+            raise user_error
+        except (ConnectionError, KeyError, ValueError) as error:
+            raise UserError(f"Synchronization failed: {str(error)}") from error
 
     def _get_or_create_vehicle_model(self, model_name):
         """Get or create fleet.vehicle.model by name."""
@@ -138,7 +138,7 @@ class VehicleSyncWizard(models.TransientModel):
         if not vehicle_model:
             # Extract brand from model_name (e.g., "Ford/Focus" -> "Ford")
             brand_name = model_name.split("/")[0] if "/" in model_name else "Unknown"
-            
+
             # Get or create brand
             brand = self.env["fleet.vehicle.model.brand"].search(
                 [("name", "=", brand_name)], limit=1
@@ -147,7 +147,7 @@ class VehicleSyncWizard(models.TransientModel):
                 brand = self.env["fleet.vehicle.model.brand"].create(
                     {"name": brand_name}
                 )
-            
+
             vehicle_model = self.env["fleet.vehicle.model"].create(
                 {
                     "name": model_name,
