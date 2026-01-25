@@ -48,7 +48,9 @@
         "views/route_trip_import_wizard_views.xml",
         "report/gps_route_sheet_report.xml",
     ],
-    "demo": [],
+    "demo": [
+        "data/demo_vehicles.xml",
+    ],
     "images": [
         "static/description/icon.png",
         "static/description/banner.png",

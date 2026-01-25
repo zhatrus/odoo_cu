@@ -1,0 +1,174 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * gps_route_sheet
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-01-25 22:00+0000\n"
+"PO-Revision-Date: 2026-01-25 22:00+0000\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__imei
+msgid "GPS IMEI"
+msgstr "GPS IMEI"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__gps_tracker_sn
+msgid "Tracker S/N"
+msgstr "Серійний номер трекера"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__fuel_card_number
+msgid "Fuel Card Number"
+msgstr "Номер паливної картки"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__fuel_norm_l_100km
+msgid "Fuel Norm (L/100km)"
+msgstr "Норма витрат палива (Л/100км)"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__sim_number
+msgid "SIM Number"
+msgstr "Номер SIM-картки"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__gps_alias
+msgid "GPS Alias"
+msgstr "GPS псевдонім"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_latitude
+msgid "Current Latitude"
+msgstr "Поточна широта"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_longitude
+msgid "Current Longitude"
+msgstr "Поточна довгота"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__last_position_time
+msgid "Last Position Time"
+msgstr "Час останньої позиції"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__gps_status
+msgid "GPS Status"
+msgstr "Статус GPS"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps
+msgid "GPS Tracking"
+msgstr "GPS відстеження"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps
+msgid "GPS Device Information"
+msgstr "Інформація про GPS пристрій"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps
+msgid "Fuel Card Information"
+msgstr "Інформація про паливну картку"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps
+msgid "Current GPS Position"
+msgstr "Поточна GPS позиція"
+
+#. module: gps_route_sheet
+#: model:ir.ui.menu,name:gps_route_sheet.menu_vehicle_sync_wizard
+msgid "Sync Vehicles from GPS"
+msgstr "Синхронізація авто з GPS"
+
+#. module: gps_route_sheet
+#: model:ir.actions.act_window,name:gps_route_sheet.action_vehicle_sync_wizard
+msgid "Sync Vehicles from GPS DB"
+msgstr "Синхронізація авто з GPS БД"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_vehicle_sync_wizard_form
+msgid "Synchronize Vehicles from GPS Database"
+msgstr "Синхронізація транспорту з GPS бази даних"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_vehicle_sync_wizard__sync_mode
+msgid "Sync Mode"
+msgstr "Режим синхронізації"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_vehicle_sync_wizard__vehicle_count
+msgid "Vehicles Found"
+msgstr "Знайдено транспорту"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_vehicle_sync_wizard__result_message
+msgid "Result"
+msgstr "Результат"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,selection:gps_route_sheet.field_vehicle_sync_wizard__sync_mode
+msgid "Create New Vehicles Only"
+msgstr "Тільки створити нові"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,selection:gps_route_sheet.field_vehicle_sync_wizard__sync_mode
+msgid "Update Existing Vehicles"
+msgstr "Оновити існуючі"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,selection:gps_route_sheet.field_vehicle_sync_wizard__sync_mode
+msgid "Create New and Update Existing"
+msgstr "Створити нові та оновити існуючі"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_vehicle_sync_wizard_form
+msgid "Synchronize"
+msgstr "Синхронізувати"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_vehicle_sync_wizard_form
+msgid "View Vehicles"
+msgstr "Переглянути транспорт"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_vehicle_sync_wizard_form
+msgid "Cancel"
+msgstr "Скасувати"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_search_gps
+msgid "Has GPS Tracker"
+msgstr "Має GPS трекер"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_search_gps
+msgid "No GPS Tracker"
+msgstr "Немає GPS трекера"
+
+#. module: gps_route_sheet
+#: code:addons/gps_route_sheet/wizard/vehicle_sync_wizard.py:0
+#, python-format
+msgid "No vehicles found in GPS database."
+msgstr "Не знайдено транспорту в GPS базі даних."
+
+#. module: gps_route_sheet
+#: code:addons/gps_route_sheet/wizard/vehicle_sync_wizard.py:0
+#, python-format
+msgid "Synchronization failed: %s"
+msgstr "Помилка синхронізації: %s"
+
+#. module: gps_route_sheet
+#: code:addons/gps_route_sheet/wizard/vehicle_sync_wizard.py:0
+#, python-format
+msgid "Synchronization Successful"
+msgstr "Синхронізація успішна"

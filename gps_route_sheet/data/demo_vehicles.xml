@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Vehicle Brands -->
+        <record id="brand_ford" model="fleet.vehicle.model.brand">
+            <field name="name">Ford</field>
+        </record>
+        
+        <record id="brand_toyota" model="fleet.vehicle.model.brand">
+            <field name="name">Toyota</field>
+        </record>
+        
+        <record id="brand_volkswagen" model="fleet.vehicle.model.brand">
+            <field name="name">Volkswagen</field>
+        </record>
+
+        <!-- Demo Vehicle Models -->
+        <record id="model_ford_focus" model="fleet.vehicle.model">
+            <field name="name">Ford/Focus</field>
+            <field name="brand_id" ref="brand_ford"/>
+        </record>
+        
+        <record id="model_toyota_camry" model="fleet.vehicle.model">
+            <field name="name">Toyota/Camry</field>
+            <field name="brand_id" ref="brand_toyota"/>
+        </record>
+        
+        <record id="model_vw_passat" model="fleet.vehicle.model">
+            <field name="name">Volkswagen/Passat</field>
+            <field name="brand_id" ref="brand_volkswagen"/>
+        </record>
+
+        <!-- Demo Vehicles with GPS data -->
+        <record id="vehicle_demo_1" model="fleet.vehicle">
+            <field name="model_id" ref="model_ford_focus"/>
+            <field name="license_plate">AA1234BB</field>
+            <field name="imei">350317172983730</field>
+            <field name="gps_tracker_sn">GPS-001-2024</field>
+            <field name="fuel_card_number">FC-1001</field>
+            <field name="fuel_norm_l_100km">7.5</field>
+            <field name="sim_number">+380501234567</field>
+            <field name="gps_alias">Delivery Van #1</field>
+        </record>
+
+        <record id="vehicle_demo_2" model="fleet.vehicle">
+            <field name="model_id" ref="model_toyota_camry"/>
+            <field name="license_plate">BC5678DE</field>
+            <field name="imei">350317172983731</field>
+            <field name="gps_tracker_sn">GPS-002-2024</field>
+            <field name="fuel_card_number">FC-1002</field>
+            <field name="fuel_norm_l_100km">8.2</field>
+            <field name="sim_number">+380501234568</field>
+            <field name="gps_alias">Manager Car</field>
+        </record>
+
+        <record id="vehicle_demo_3" model="fleet.vehicle">
+            <field name="model_id" ref="model_vw_passat"/>
+            <field name="license_plate">EF9012GH</field>
+            <field name="imei">350317172983732</field>
+            <field name="gps_tracker_sn">GPS-003-2024</field>
+            <field name="fuel_card_number">FC-1003</field>
+            <field name="fuel_norm_l_100km">9.1</field>
+            <field name="sim_number">+380501234569</field>
+            <field name="gps_alias">Service Vehicle</field>
+        </record>
+    </data>
+</odoo>
