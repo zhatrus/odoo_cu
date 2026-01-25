@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Trip Purposes -->
+        <record id="trip_purpose_business" model="gps.trip.purpose">
+            <field name="external_id">1</field>
+            <field name="code">BUSINESS</field>
+            <field name="name_uk">Службова поїздка</field>
+            <field name="description">Поїздка по службових справах організації</field>
+            <field name="is_active" eval="True"/>
+            <field name="sort_order">10</field>
+        </record>
+
+        <record id="trip_purpose_delivery" model="gps.trip.purpose">
+            <field name="external_id">2</field>
+            <field name="code">DELIVERY</field>
+            <field name="name_uk">Доставка вантажу</field>
+            <field name="description">Доставка товарів, матеріалів або документів</field>
+            <field name="is_active" eval="True"/>
+            <field name="sort_order">20</field>
+        </record>
+
+        <record id="trip_purpose_meeting" model="gps.trip.purpose">
+            <field name="external_id">3</field>
+            <field name="code">MEETING</field>
+            <field name="name_uk">Зустріч/Нарада</field>
+            <field name="description">Поїздка на зустріч або нараду</field>
+            <field name="is_active" eval="True"/>
+            <field name="sort_order">30</field>
+        </record>
+
+        <record id="trip_purpose_maintenance" model="gps.trip.purpose">
+            <field name="external_id">4</field>
+            <field name="code">MAINTENANCE</field>
+            <field name="name_uk">Технічне обслуговування</field>
+            <field name="description">Поїздка на СТО для обслуговування або ремонту</field>
+            <field name="is_active" eval="True"/>
+            <field name="sort_order">40</field>
+        </record>
+
+        <record id="trip_purpose_personal" model="gps.trip.purpose">
+            <field name="external_id">5</field>
+            <field name="code">PERSONAL</field>
+            <field name="name_uk">Особисті потреби</field>
+            <field name="description">Використання авто для особистих потреб (за дозволом)</field>
+            <field name="is_active" eval="True"/>
+            <field name="sort_order">50</field>
+        </record>
+
+        <record id="trip_purpose_other" model="gps.trip.purpose">
+            <field name="external_id">6</field>
+            <field name="code">OTHER</field>
+            <field name="name_uk">Інше</field>
+            <field name="description">Інша мета поїздки</field>
+            <field name="is_active" eval="True"/>
+            <field name="sort_order">99</field>
+        </record>
+    </data>
+</odoo>

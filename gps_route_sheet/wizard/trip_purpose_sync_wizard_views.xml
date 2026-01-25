@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Trip Purpose Sync Wizard Form View -->
+    <record id="view_trip_purpose_sync_wizard_form" model="ir.ui.view">
+        <field name="name">trip.purpose.sync.wizard.form</field>
+        <field name="model">trip.purpose.sync.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Synchronize Trip Purposes from GPS Database">
+                <group>
+                    <group>
+                        <field name="state" invisible="1"/>
+                    </group>
+                </group>
+                <group invisible="state != 'done'">
+                    <group>
+                        <field name="purpose_count"/>
+                        <field name="result_message" colspan="2"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Synchronize" name="action_sync_purposes" type="object" class="btn-primary" invisible="state == 'done'"/>
+                    <button string="View Purposes" name="action_close" type="object" class="btn-primary" invisible="state != 'done'"/>
+                    <button string="Cancel" special="cancel" class="btn-secondary"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action to open Trip Purpose Sync Wizard -->
+    <record id="action_trip_purpose_sync_wizard" model="ir.actions.act_window">
+        <field name="name">Sync Trip Purposes from GPS</field>
+        <field name="res_model">trip.purpose.sync.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menu item for Sync Trip Purposes -->
+    <menuitem
+        id="menu_trip_purpose_sync_wizard"
+        name="Sync Trip Purposes from GPS"
+        parent="menu_gps_root"
+        action="action_trip_purpose_sync_wizard"
+        sequence="25"/>
+</odoo>

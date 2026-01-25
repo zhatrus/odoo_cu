@@ -45,11 +45,13 @@
         "views/fleet_vehicle_views.xml",
         "views/res_config_settings_views.xml",
         "wizard/vehicle_sync_wizard_views.xml",
+        "wizard/trip_purpose_sync_wizard_views.xml",
         "views/route_trip_import_wizard_views.xml",
         "report/gps_route_sheet_report.xml",
     ],
     "demo": [
         "data/demo_vehicles.xml",
+        "data/demo_trip_purposes.xml",
     ],
     "images": [
         "static/description/icon.png",

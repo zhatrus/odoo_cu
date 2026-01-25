@@ -172,3 +172,78 @@ msgstr "Помилка синхронізації: %s"
 #, python-format
 msgid "Synchronization Successful"
 msgstr "Синхронізація успішна"
+
+#. module: gps_route_sheet
+#: model:ir.model,name:gps_route_sheet.model_gps_trip_purpose
+msgid "GPS Trip Purpose"
+msgstr "Мета поїздки GPS"
+
+#. module: gps_route_sheet
+#: model:ir.model,name:gps_route_sheet.model_trip_purpose_sync_wizard
+msgid "Sync Trip Purposes from GPS Database"
+msgstr "Синхронізація мети поїздок з GPS БД"
+
+#. module: gps_route_sheet
+#: model:ir.actions.act_window,name:gps_route_sheet.action_trip_purpose_sync_wizard
+msgid "Sync Trip Purposes from GPS"
+msgstr "Синхронізація мети поїздок з GPS"
+
+#. module: gps_route_sheet
+#: model:ir.ui.menu,name:gps_route_sheet.menu_trip_purpose_sync_wizard
+msgid "Sync Trip Purposes from GPS"
+msgstr "Синхронізувати мету поїздок"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_gps_trip_purpose__code
+msgid "Code"
+msgstr "Код"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_gps_trip_purpose__name_uk
+msgid "Name"
+msgstr "Назва"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_gps_trip_purpose__description
+msgid "Description"
+msgstr "Опис"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_gps_trip_purpose__is_active
+msgid "Active"
+msgstr "Активний"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_gps_trip_purpose__sort_order
+msgid "Sort Order"
+msgstr "Порядок сортування"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_trip_purpose_sync_wizard__purpose_count
+msgid "Purposes Found"
+msgstr "Знайдено мети поїздок"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_trip_purpose_sync_wizard_form
+msgid "View Purposes"
+msgstr "Переглянути мету поїздок"
+
+#. module: gps_route_sheet
+#: model:ir.actions.act_window,name:gps_route_sheet.action_gps_trip_purpose
+msgid "Trip Purposes"
+msgstr "Мета поїздок"
+
+#. module: gps_route_sheet
+#: model:ir.ui.menu,name:gps_route_sheet.menu_gps_trip_purpose
+msgid "Trip Purposes"
+msgstr "Мета поїздок"
+
+#. module: gps_route_sheet
+#: model:ir.ui.menu,name:gps_route_sheet.menu_gps_root
+msgid "GPS Route Sheets"
+msgstr "GPS маршрутні листи"
+
+#. module: gps_route_sheet
+#: model:ir.ui.menu,name:gps_route_sheet.menu_gps_route_sheet
+msgid "Route Sheets"
+msgstr "Маршрутні листи"
