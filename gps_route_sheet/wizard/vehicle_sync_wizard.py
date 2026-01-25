@@ -136,8 +136,23 @@ class VehicleSyncWizard(models.TransientModel):
             [("name", "=", model_name)], limit=1
         )
         if not vehicle_model:
+            # Extract brand from model_name (e.g., "Ford/Focus" -> "Ford")
+            brand_name = model_name.split("/")[0] if "/" in model_name else "Unknown"
+            
+            # Get or create brand
+            brand = self.env["fleet.vehicle.model.brand"].search(
+                [("name", "=", brand_name)], limit=1
+            )
+            if not brand:
+                brand = self.env["fleet.vehicle.model.brand"].create(
+                    {"name": brand_name}
+                )
+            
             vehicle_model = self.env["fleet.vehicle.model"].create(
-                {"name": model_name}
+                {
+                    "name": model_name,
+                    "brand_id": brand.id,
+                }
             )
         return vehicle_model.id
 
