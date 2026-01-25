@@ -1,5 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_gps_db_service,gps.db.service,model_gps_db_service,base.group_user,1,0,0,0
+access_vehicle_sync_wizard_user,vehicle.sync.wizard user,model_vehicle_sync_wizard,base.group_user,1,1,1,1
 access_vehicle_sync_wizard_manager,vehicle.sync.wizard manager,model_vehicle_sync_wizard,gps_route_sheet.group_gps_route_manager,1,1,1,1
 access_gps_route_sheet_user,gps.route.sheet user,model_gps_route_sheet,gps_route_sheet.group_gps_route_user,1,0,0,0
 access_gps_route_sheet_manager,gps.route.sheet manager,model_gps_route_sheet,gps_route_sheet.group_gps_route_manager,1,1,1,1
