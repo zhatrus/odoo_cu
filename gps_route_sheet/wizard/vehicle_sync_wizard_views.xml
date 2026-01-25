@@ -40,7 +40,7 @@
     <menuitem
         id="menu_vehicle_sync_wizard"
         name="Sync Vehicles from GPS"
-        parent="fleet.menu_fleet_configuration"
+        parent="fleet.menu_root"
         action="action_vehicle_sync_wizard"
-        sequence="100"/>
+        sequence="99"/>
 </odoo>
