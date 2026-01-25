@@ -42,8 +42,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='license_plate']" position="after">
                 <field name="imei" optional="show"/>
-                <field name="gps_status" optional="show"/>
-                <field name="last_position_time" optional="hide"/>
+                <field name="fuel_card_number" optional="hide"/>
             </xpath>
         </field>
     </record>
@@ -59,7 +58,6 @@
                 <field name="fuel_card_number"/>
                 <filter string="Has GPS Tracker" name="has_gps" domain="[('imei', '!=', False)]"/>
                 <filter string="No GPS Tracker" name="no_gps" domain="[('imei', '=', False)]"/>
-                <filter string="GPS Active" name="gps_active" domain="[('gps_status', '=', 'Active')]"/>
             </xpath>
         </field>
     </record>
