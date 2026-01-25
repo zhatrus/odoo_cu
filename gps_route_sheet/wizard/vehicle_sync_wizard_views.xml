@@ -26,4 +26,20 @@
             </form>
         </field>
     </record>
+
+    <!-- Vehicle Sync Wizard Action -->
+    <record id="action_vehicle_sync_wizard" model="ir.actions.act_window">
+        <field name="name">Sync Vehicles from GPS</field>
+        <field name="res_model">vehicle.sync.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <!-- Menu Item for Vehicle Sync Wizard -->
+    <menuitem
+        id="menu_vehicle_sync_wizard"
+        name="Sync Vehicles from GPS"
+        parent="menu_gps_route_root"
+        action="action_vehicle_sync_wizard"
+        sequence="5"/>
 </odoo>
