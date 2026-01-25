@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- GPS Tracking Map Template -->
+    <template id="gps_tracking_map" name="GPS Fleet Tracking Map">
+        <t t-call="web.layout">
+            <t t-set="head">
+                <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+                <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+                <style>
+                    #map { height: calc(100vh - 100px); width: 100%; }
+                    .vehicle-list { 
+                        position: absolute; 
+                        top: 80px; 
+                        left: 10px; 
+                        z-index: 1000; 
+                        background: white; 
+                        padding: 10px; 
+                        border-radius: 5px;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                        max-height: calc(100vh - 200px);
+                        overflow-y: auto;
+                        width: 300px;
+                    }
+                    .vehicle-item {
+                        padding: 8px;
+                        margin: 5px 0;
+                        border: 1px solid #ddd;
+                        border-radius: 3px;
+                        cursor: pointer;
+                    }
+                    .vehicle-item:hover {
+                        background-color: #f0f0f0;
+                    }
+                    .vehicle-item.active {
+                        background-color: #e3f2fd;
+                        border-color: #2196F3;
+                    }
+                    .vehicle-info {
+                        position: absolute;
+                        top: 80px;
+                        right: 10px;
+                        z-index: 1000;
+                        background: white;
+                        padding: 15px;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+                        width: 350px;
+                        display: none;
+                    }
+                    .vehicle-info.show {
+                        display: block;
+                    }
+                    .info-row {
+                        display: flex;
+                        justify-content: space-between;
+                        padding: 5px 0;
+                        border-bottom: 1px solid #eee;
+                    }
+                    .info-label {
+                        font-weight: bold;
+                        color: #666;
+                    }
+                    .info-value {
+                        color: #333;
+                    }
+                </style>
+            </t>
+            <div class="container-fluid">
+                <h2 class="mt-3 mb-3">GPS Fleet Tracking</h2>
+                
+                <!-- Vehicle List Panel -->
+                <div class="vehicle-list">
+                    <h5>Vehicles</h5>
+                    <div id="vehicleListContainer"></div>
+                </div>
+
+                <!-- Vehicle Info Panel -->
+                <div class="vehicle-info" id="vehicleInfo">
+                    <h5 id="vehicleName">Vehicle Details</h5>
+                    <div id="vehicleDetails"></div>
+                </div>
+
+                <!-- Map Container -->
+                <div id="map"></div>
+            </div>
+
+            <script type="text/javascript">
+                odoo.define('gps_route_sheet.tracking_map', function (require) {
+                    'use strict';
+
+                    var ajax = require('web.ajax');
+                    var map, markers = {};
+                    var selectedVehicleId = null;
+
+                    // Initialize map
+                    function initMap() {
+                        map = L.map('map').setView([50.4501, 30.5234], 6); // Center on Ukraine
+                        
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '© OpenStreetMap contributors',
+                            maxZoom: 18,
+                        }).addTo(map);
+                    }
+
+                    // Load vehicles and display on map
+                    function loadVehicles() {
+                        ajax.jsonRpc('/gps/tracking/vehicles', 'call', {}).then(function(vehicles) {
+                            var listContainer = document.getElementById('vehicleListContainer');
+                            listContainer.innerHTML = '';
+                            
+                            // Clear existing markers
+                            Object.values(markers).forEach(function(marker) {
+                                map.removeLayer(marker);
+                            });
+                            markers = {};
+
+                            vehicles.forEach(function(vehicle) {
+                                // Add to list
+                                var item = document.createElement('div');
+                                item.className = 'vehicle-item';
+                                item.innerHTML = '&lt;strong&gt;' + vehicle.license_plate + '&lt;/strong&gt;&lt;br/&gt;' +
+                                                'IMEI: ' + vehicle.imei + '&lt;br/&gt;' +
+                                                'Status: ' + vehicle.status;
+                                item.onclick = function() {
+                                    selectVehicle(vehicle.id);
+                                };
+                                listContainer.appendChild(item);
+
+                                // Add marker to map
+                                var marker = L.marker([vehicle.latitude, vehicle.longitude])
+                                    .addTo(map)
+                                    .bindPopup('&lt;b&gt;' + vehicle.license_plate + '&lt;/b&gt;&lt;br/&gt;' + vehicle.name);
+                                
+                                marker.on('click', function() {
+                                    selectVehicle(vehicle.id);
+                                });
+                                
+                                markers[vehicle.id] = marker;
+                            });
+
+                            // Fit map to show all markers
+                            if (vehicles.length > 0) {
+                                var group = L.featureGroup(Object.values(markers));
+                                map.fitBounds(group.getBounds().pad(0.1));
+                            }
+                        });
+                    }
+
+                    // Select vehicle and show details
+                    function selectVehicle(vehicleId) {
+                        selectedVehicleId = vehicleId;
+                        
+                        // Update list selection
+                        document.querySelectorAll('.vehicle-item').forEach(function(item) {
+                            item.classList.remove('active');
+                        });
+                        event.currentTarget.classList.add('active');
+
+                        // Load vehicle details
+                        ajax.jsonRpc('/gps/tracking/vehicle/' + vehicleId, 'call', {}).then(function(data) {
+                            if (data.error) {
+                                console.error(data.error);
+                                return;
+                            }
+
+                            var infoPanel = document.getElementById('vehicleInfo');
+                            var detailsContainer = document.getElementById('vehicleDetails');
+                            
+                            document.getElementById('vehicleName').textContent = data.license_plate;
+                            
+                            var html = '';
+                            html += createInfoRow('Vehicle', data.name);
+                            html += createInfoRow('IMEI', data.imei);
+                            html += createInfoRow('Speed', (data.speed || 0) + ' km/h');
+                            html += createInfoRow('Coordinates', data.latitude.toFixed(6) + ', ' + data.longitude.toFixed(6));
+                            html += createInfoRow('Last Update', formatDateTime(data.timestamp));
+                            html += createInfoRow('Satellites', data.satellites || 'N/A');
+                            html += createInfoRow('Odometer', (data.odometer || 0) + ' km');
+                            html += createInfoRow('Ignition', data.ignition ? 'ON' : 'OFF');
+                            html += createInfoRow('Fuel', (data.fuel || 0) + ' L');
+                            html += createInfoRow('Battery', (data.battery || 0) + ' V');
+                            
+                            detailsContainer.innerHTML = html;
+                            infoPanel.classList.add('show');
+
+                            // Center map on selected vehicle
+                            if (markers[vehicleId]) {
+                                map.setView([data.latitude, data.longitude], 15);
+                                markers[vehicleId].openPopup();
+                            }
+                        });
+                    }
+
+                    function createInfoRow(label, value) {
+                        return '&lt;div class="info-row"&gt;' +
+                               '&lt;span class="info-label"&gt;' + label + ':&lt;/span&gt;' +
+                               '&lt;span class="info-value"&gt;' + value + '&lt;/span&gt;' +
+                               '&lt;/div&gt;';
+                    }
+
+                    function formatDateTime(isoString) {
+                        if (!isoString) return 'N/A';
+                        var date = new Date(isoString);
+                        return date.toLocaleString('uk-UA');
+                    }
+
+                    // Initialize on page load
+                    document.addEventListener('DOMContentLoaded', function() {
+                        initMap();
+                        loadVehicles();
+                        
+                        // Auto-refresh every 30 seconds
+                        setInterval(loadVehicles, 30000);
+                    });
+                });
+            </script>
+        </t>
+    </template>
+
+    <!-- Menu Item for GPS Tracking -->
+    <menuitem
+        id="menu_gps_tracking_map"
+        name="Fleet Tracking Map"
+        parent="menu_gps_root"
+        action="action_gps_tracking_map"
+        sequence="1"/>
+
+    <!-- Action for GPS Tracking Map -->
+    <record id="action_gps_tracking_map" model="ir.actions.act_url">
+        <field name="name">Fleet Tracking Map</field>
+        <field name="url">/gps/tracking/map</field>
+        <field name="target">self</field>
+    </record>
+</odoo>

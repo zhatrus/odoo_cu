@@ -44,6 +44,7 @@
         "views/gps_route_sheet_views.xml",
         "views/fleet_vehicle_views.xml",
         "views/res_config_settings_views.xml",
+        "views/gps_tracking_map.xml",
         "wizard/vehicle_sync_wizard_views.xml",
         "wizard/trip_purpose_sync_wizard_views.xml",
         "views/route_trip_import_wizard_views.xml",
