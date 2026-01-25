@@ -27,13 +27,22 @@
         </field>
     </record>
 
-    <!-- Action to open Vehicle Sync Wizard -->
-    <record id="action_vehicle_sync_wizard" model="ir.actions.act_window">
+    <!-- Server Action to open Vehicle Sync Wizard -->
+    <record id="action_vehicle_sync_wizard" model="ir.actions.server">
         <field name="name">Sync Vehicles from GPS</field>
-        <field name="res_model">vehicle.sync.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
+        <field name="model_id" ref="fleet.model_fleet_vehicle"/>
         <field name="binding_model_id" ref="fleet.model_fleet_vehicle"/>
-        <field name="binding_view_types">list</field>
+        <field name="binding_view_types">list,kanban</field>
+        <field name="state">code</field>
+        <field name="code">
+action = {
+    'type': 'ir.actions.act_window',
+    'name': 'Sync Vehicles from GPS',
+    'res_model': 'vehicle.sync.wizard',
+    'view_mode': 'form',
+    'target': 'new',
+    'context': {},
+}
+        </field>
     </record>
 </odoo>
