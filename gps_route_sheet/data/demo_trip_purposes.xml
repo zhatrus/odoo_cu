@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data>
         <!-- Demo Trip Purposes -->
         <record id="trip_purpose_business" model="gps.trip.purpose">
             <field name="external_id">1</field>
