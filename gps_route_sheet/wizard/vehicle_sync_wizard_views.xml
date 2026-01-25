@@ -39,7 +39,7 @@
     <menuitem
         id="menu_vehicle_sync_wizard"
         name="Sync Vehicles from GPS"
-        parent="menu_gps_route_root"
+        parent="menu_gps_root"
         action="action_vehicle_sync_wizard"
         sequence="5"/>
 </odoo>
