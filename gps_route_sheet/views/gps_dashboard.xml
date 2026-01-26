@@ -193,6 +193,16 @@ action = records.action_sync_odometer()
                             <field name="current_device_battery"/>
                         </group>
                     </group>
+                    <group string="Fuel Card" invisible="fuel_card_number == False">
+                        <group>
+                            <field name="fuel_card_number"/>
+                            <field name="last_fuel_date"/>
+                        </group>
+                        <group>
+                            <field name="last_fuel_volume"/>
+                            <field name="last_fuel_amount"/>
+                        </group>
+                    </group>
                     <div class="oe_button_box" name="button_box">
                         <button name="action_sync_odometer" 
                                 type="object" 

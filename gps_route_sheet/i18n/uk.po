@@ -291,6 +291,31 @@ msgid "GPS Fleet Dashboard"
 msgstr "GPS Панель автопарку"
 
 #. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__last_fuel_date
+msgid "Last Refueling Date"
+msgstr "Дата останньої заправки"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__last_fuel_volume
+msgid "Last Refueling Volume (L)"
+msgstr "Об'єм останньої заправки (л)"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__last_fuel_amount
+msgid "Last Refueling Amount"
+msgstr "Сума останньої заправки"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps_extended
+msgid "Fuel Card"
+msgstr "Паливна картка"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps_extended
+msgid "Open in Google Maps"
+msgstr "Відкрити в Google Maps"
+
+#. module: gps_route_sheet
 #: model:ir.actions.server,name:gps_route_sheet.action_sync_all_odometers
 msgid "Sync All Odometers"
 msgstr "Синхронізувати всі одометри"

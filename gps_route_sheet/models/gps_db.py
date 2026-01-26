@@ -167,3 +167,37 @@ class GpsDbService(models.AbstractModel):
         params = self._get_db_params()
         with psycopg2.connect(**params):
             return True
+
+    def fetch_last_fuel_transaction(self, fuel_card_number):
+        """Fetch last fuel transaction by fuel card number."""
+        if not fuel_card_number:
+            return None
+        params = self._get_db_params()
+        query = """
+            SELECT
+                trans_date,
+                volume,
+                amnt_trans,
+                azs_name,
+                product_desc
+            FROM fuel_transactions
+            WHERE card_num = %s
+            ORDER BY trans_date DESC
+            LIMIT 1
+        """
+        try:
+            with psycopg2.connect(**params) as conn:
+                with conn.cursor() as cursor:
+                    cursor.execute(query, (fuel_card_number,))
+                    row = cursor.fetchone()
+                    if row:
+                        return {
+                            "trans_date": row[0],
+                            "volume": row[1],
+                            "amount": row[2],
+                            "station": row[3],
+                            "product": row[4],
+                        }
+                    return None
+        except (psycopg2.Error, KeyError, ValueError):
+            return None

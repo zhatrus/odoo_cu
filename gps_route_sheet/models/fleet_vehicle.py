@@ -112,6 +112,26 @@ class FleetVehicle(models.Model):
         digits=(4, 2),
         help="GPS tracker device battery voltage",
     )
+    last_fuel_date = fields.Datetime(
+        string="Last Refueling Date",
+        compute="_compute_last_fuel_transaction",
+        store=False,
+        help="Date and time of last fuel transaction",
+    )
+    last_fuel_volume = fields.Float(
+        string="Last Refueling Volume (L)",
+        compute="_compute_last_fuel_transaction",
+        store=False,
+        digits=(6, 2),
+        help="Volume of last fuel transaction in liters",
+    )
+    last_fuel_amount = fields.Float(
+        string="Last Refueling Amount",
+        compute="_compute_last_fuel_transaction",
+        store=False,
+        digits=(10, 2),
+        help="Amount of last fuel transaction",
+    )
 
     @api.depends("imei")
     # pylint: disable=too-many-statements
@@ -177,6 +197,34 @@ class FleetVehicle(models.Model):
                 vehicle.current_fuel_level = 0.0
                 vehicle.current_battery = 0.0
                 vehicle.current_device_battery = 0.0
+
+    @api.depends("fuel_card_number")
+    def _compute_last_fuel_transaction(self):
+        """Compute last fuel transaction from GPS database."""
+        for vehicle in self:
+            if not vehicle.fuel_card_number:
+                vehicle.last_fuel_date = False
+                vehicle.last_fuel_volume = 0.0
+                vehicle.last_fuel_amount = 0.0
+                continue
+
+            try:
+                gps_service = self.env["gps.db.service"]
+                transaction = gps_service.fetch_last_fuel_transaction(
+                    vehicle.fuel_card_number
+                )
+                if transaction:
+                    vehicle.last_fuel_date = transaction.get("trans_date")
+                    vehicle.last_fuel_volume = transaction.get("volume", 0.0)
+                    vehicle.last_fuel_amount = transaction.get("amount", 0.0)
+                else:
+                    vehicle.last_fuel_date = False
+                    vehicle.last_fuel_volume = 0.0
+                    vehicle.last_fuel_amount = 0.0
+            except (KeyError, TypeError, ValueError, ConnectionError):
+                vehicle.last_fuel_date = False
+                vehicle.last_fuel_volume = 0.0
+                vehicle.last_fuel_amount = 0.0
 
     def action_sync_odometer(self):
         """Sync odometer value from GPS tracker to Odoo."""
