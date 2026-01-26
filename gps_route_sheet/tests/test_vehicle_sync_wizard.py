@@ -13,7 +13,10 @@ class TestVehicleSyncWizard(TransactionCase):
             {"sync_mode": "create_and_update"}
         )
 
-    @patch("odoo.addons.gps_route_sheet.models.gps_db.GpsDbService.fetch_vehicles")
+    @patch(
+        "odoo.addons.gps_route_sheet.models.gps_db."
+        "GpsDbService.fetch_vehicles"
+    )
     def test_action_sync_vehicles_create_new(self, mock_fetch):
         """Test creating new vehicles from GPS database."""
         mock_fetch.return_value = [
@@ -47,7 +50,10 @@ class TestVehicleSyncWizard(TransactionCase):
         self.assertEqual(vehicle.license_plate, "TEST123")
         self.assertEqual(vehicle.fuel_card_number, "CARD123")
 
-    @patch("odoo.addons.gps_route_sheet.models.gps_db.GpsDbService.fetch_vehicles")
+    @patch(
+        "odoo.addons.gps_route_sheet.models.gps_db."
+        "GpsDbService.fetch_vehicles"
+    )
     def test_action_sync_vehicles_update_existing(self, mock_fetch):
         """Test updating existing vehicles from GPS database."""
         # Create existing vehicle
@@ -85,13 +91,16 @@ class TestVehicleSyncWizard(TransactionCase):
         result = wizard.action_sync_vehicles()
 
         self.assertEqual(result["type"], "ir.actions.client")
-        
+
         # Verify vehicle was updated
         vehicle.invalidate_recordset()
         self.assertEqual(vehicle.license_plate, "NEW123")
         self.assertEqual(vehicle.fuel_card_number, "CARD123")
 
-    @patch("odoo.addons.gps_route_sheet.models.gps_db.GpsDbService.fetch_vehicles")
+    @patch(
+        "odoo.addons.gps_route_sheet.models.gps_db."
+        "GpsDbService.fetch_vehicles"
+    )
     def test_action_sync_vehicles_skip_no_imei(self, mock_fetch):
         """Test skipping vehicles without IMEI."""
         mock_fetch.return_value = [
@@ -111,24 +120,30 @@ class TestVehicleSyncWizard(TransactionCase):
         result = self.wizard.action_sync_vehicles()
 
         self.assertEqual(result["type"], "ir.actions.client")
-        
+
         # Verify no vehicle was created
         vehicle = self.env["fleet.vehicle"].search(
             [("license_plate", "=", "TEST123")]
         )
         self.assertEqual(len(vehicle), 0)
 
-    @patch("odoo.addons.gps_route_sheet.models.gps_db.GpsDbService.fetch_vehicles")
+    @patch(
+        "odoo.addons.gps_route_sheet.models.gps_db."
+        "GpsDbService.fetch_vehicles"
+    )
     def test_action_sync_vehicles_no_data(self, mock_fetch):
         """Test synchronization with no vehicles in GPS database."""
         mock_fetch.return_value = []
 
         with self.assertRaises(UserError) as context:
             self.wizard.action_sync_vehicles()
-        
+
         self.assertIn("No vehicles found", str(context.exception))
 
-    @patch("odoo.addons.gps_route_sheet.models.gps_db.GpsDbService.fetch_vehicles")
+    @patch(
+        "odoo.addons.gps_route_sheet.models.gps_db."
+        "GpsDbService.fetch_vehicles"
+    )
     def test_get_or_create_vehicle_model(self, mock_fetch):
         """Test vehicle model creation."""
         mock_fetch.return_value = [

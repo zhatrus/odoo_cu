@@ -25,7 +25,10 @@ class TestFleetVehicle(TransactionCase):
             }
         )
 
-    @patch("odoo.addons.gps_route_sheet.models.gps_db.GpsDbService.fetch_last_position")
+    @patch(
+        "odoo.addons.gps_route_sheet.models.gps_db."
+        "GpsDbService.fetch_last_position"
+    )
     def test_compute_current_position(self, mock_fetch):
         """Test GPS position computation."""
         mock_fetch.return_value = {
@@ -67,7 +70,10 @@ class TestFleetVehicle(TransactionCase):
         self.assertEqual(vehicle.current_longitude, 0.0)
         self.assertEqual(vehicle.gps_status, "No IMEI")
 
-    @patch("odoo.addons.gps_route_sheet.models.gps_db.GpsDbService.fetch_last_fuel_transaction")
+    @patch(
+        "odoo.addons.gps_route_sheet.models.gps_db."
+        "GpsDbService.fetch_last_fuel_transaction"
+    )
     def test_compute_last_fuel_transaction(self, mock_fetch):
         """Test last fuel transaction computation."""
         mock_fetch.return_value = {
@@ -99,7 +105,10 @@ class TestFleetVehicle(TransactionCase):
         self.assertEqual(vehicle.last_fuel_volume, 0.0)
         self.assertEqual(vehicle.last_fuel_amount, 0.0)
 
-    @patch("odoo.addons.gps_route_sheet.models.gps_db.GpsDbService.fetch_last_position")
+    @patch(
+        "odoo.addons.gps_route_sheet.models.gps_db."
+        "GpsDbService.fetch_last_position"
+    )
     def test_action_sync_odometer(self, mock_fetch):
         """Test odometer synchronization."""
         mock_fetch.return_value = {
@@ -110,7 +119,10 @@ class TestFleetVehicle(TransactionCase):
 
         self.assertEqual(self.vehicle.odometer, 150000)
 
-    @patch("odoo.addons.gps_route_sheet.models.gps_db.GpsDbService.fetch_last_position")
+    @patch(
+        "odoo.addons.gps_route_sheet.models.gps_db."
+        "GpsDbService.fetch_last_position"
+    )
     def test_action_open_google_maps(self, mock_fetch):
         """Test Google Maps action."""
         mock_fetch.return_value = {
@@ -126,10 +138,10 @@ class TestFleetVehicle(TransactionCase):
             "battery": 13.5,
             "device_battery": 4.1,
         }
-        
+
         # Force recompute
         self.vehicle._compute_current_position()
-        
+
         result = self.vehicle.action_open_google_maps()
 
         self.assertEqual(result["type"], "ir.actions.act_url")

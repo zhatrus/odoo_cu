@@ -27,7 +27,7 @@
                         <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
                             <div class="o_kanban_image_fill_left d-none d-md-block" 
                                  t-attf-style="background-color: #{record.current_ignition.raw_value ? '#28a745' : '#6c757d'};">
-                                <i class="fa fa-car fa-3x" style="color: white; padding: 20px;"/>
+                                <i class="fa fa-car fa-3x" title="Vehicle" style="color: white; padding: 20px;"/>
                             </div>
                             <div class="oe_kanban_details">
                                 <div class="o_kanban_record_top">
@@ -53,15 +53,15 @@
                                     <div class="row">
                                         <div class="col-6">
                                             <div>
-                                                <i class="fa fa-tachometer"/> 
+                                                <i class="fa fa-tachometer" title="Speed"/> 
                                                 <strong><field name="current_speed"/> km/h</strong>
                                             </div>
                                             <div>
-                                                <i class="fa fa-road"/> 
+                                                <i class="fa fa-road" title="Odometer"/> 
                                                 <field name="current_odometer"/> km
                                             </div>
                                             <div>
-                                                <i class="fa fa-compass"/> 
+                                                <i class="fa fa-compass" title="Direction"/> 
                                                 <field name="current_angle"/>°
                                             </div>
                                         </div>
@@ -79,21 +79,21 @@
                                                 GPS: <field name="current_device_battery"/>V
                                             </div>
                                             <div>
-                                                <i class="fa fa-satellite"/> 
+                                                <i class="fa fa-satellite" title="Satellites"/> 
                                                 <field name="current_satellites"/> sats
                                             </div>
                                         </div>
                                     </div>
                                     <div class="mt-2">
                                         <small class="text-muted">
-                                            <i class="fa fa-map-marker"/> 
+                                            <i class="fa fa-map-marker" title="Location"/> 
                                             <field name="current_latitude"/>, 
                                             <field name="current_longitude"/>
                                         </small>
                                     </div>
                                     <div>
                                         <small class="text-muted">
-                                            <i class="fa fa-clock-o"/> 
+                                            <i class="fa fa-clock-o" title="Last Update"/> 
                                             <field name="last_position_time"/>
                                         </small>
                                     </div>

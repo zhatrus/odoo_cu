@@ -10,7 +10,7 @@ class TestGpsDbService(TransactionCase):
     def setUp(self):
         super().setUp()
         self.gps_service = self.env["gps.db.service"]
-        
+
         # Set up test configuration
         config = self.env["ir.config_parameter"].sudo()
         config.set_param("gps_route_sheet.db_host", "localhost")
@@ -34,10 +34,10 @@ class TestGpsDbService(TransactionCase):
         config = self.env["ir.config_parameter"].sudo()
         # Remove all GPS DB config params
         config.search([("key", "like", "gps_route_sheet.db_%")]).unlink()
-        
+
         with self.assertRaises(UserError) as context:
             self.gps_service._get_db_params()
-        
+
         self.assertIn("not configured", str(context.exception))
 
     @patch("psycopg2.connect")
@@ -51,7 +51,7 @@ class TestGpsDbService(TransactionCase):
             "2024-01-26 12:00:00",  # timestamp
             12,       # satellites
             180.0,    # angle
-            100000.0, # odometer
+            100000.0,  # odometer
             True,     # ignition
             75.0,     # fuel
             13.5,     # battery
@@ -114,7 +114,7 @@ class TestGpsDbService(TransactionCase):
     def test_fetch_last_fuel_transaction_no_card(self):
         """Test fetching fuel transaction without card number."""
         result = self.gps_service.fetch_last_fuel_transaction(None)
-        
+
         self.assertIsNone(result)
 
     @patch("psycopg2.connect")
@@ -122,9 +122,9 @@ class TestGpsDbService(TransactionCase):
         """Test fetching vehicles from GPS database."""
         mock_cursor = MagicMock()
         mock_cursor.fetchall.return_value = [
-            (1, "123456789012345", "SN001", "TEST123", "Test Model", 
+            (1, "123456789012345", "SN001", "TEST123", "Test Model",
              "CARD123", 8.5, "SIM001", "Alias1"),
-            (2, "543210987654321", "SN002", "TEST456", "Test Model 2", 
+            (2, "543210987654321", "SN002", "TEST456", "Test Model 2",
              "CARD456", 9.0, "SIM002", "Alias2"),
         ]
         mock_conn = MagicMock()
