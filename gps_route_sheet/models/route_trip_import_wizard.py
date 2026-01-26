@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -14,6 +14,6 @@ class GpsRouteTripImportWizard(models.TransientModel):
     def action_import(self):
         self.ensure_one()
         if not self.vehicle_id.imei:
-            raise UserError("Vehicle IMEI is required to import trips.")
+            raise UserError(_("Vehicle IMEI is required to import trips."))
         self.sheet_id.action_import_trips(self.date_from, self.date_to)
         return {"type": "ir.actions.act_window_close"}

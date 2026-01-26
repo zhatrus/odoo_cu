@@ -41,9 +41,7 @@ class GpsRouteSheet(models.Model):
     def action_import_trips(self, date_from=None, date_to=None):
         for sheet in self:
             if not sheet.vehicle_id.imei:
-                raise UserError(
-                _("Vehicle IMEI is required to import trips.")
-            )
+                raise UserError(_("Vehicle IMEI is required to import trips."))
             start = date_from or sheet.date_from
             end = date_to or sheet.date_to
             rows = self.env["gps.db.service"].fetch_trips(
