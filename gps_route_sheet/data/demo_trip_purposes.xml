@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <data>
-        <!-- Demo Trip Purposes -->
-        <record id="trip_purpose_business" model="gps.trip.purpose">
-            <field name="external_id">1</field>
-            <field name="code">BUSINESS</field>
-            <field name="name_uk">Службова поїздка</field>
-            <field name="description">Поїздка по службових справах організації</field>
-            <field name="is_active" eval="True"/>
-            <field name="sort_order">10</field>
-        </record>
+<odoo noupdate="1">
+    <!-- Demo Trip Purposes -->
+    <record id="trip_purpose_business" model="gps.trip.purpose">
+        <field name="external_id">1</field>
+        <field name="code">BUSINESS</field>
+        <field name="name_uk">Службова поїздка</field>
+        <field name="description">Поїздка по службових справах організації</field>
+        <field name="is_active" eval="True"/>
+        <field name="sort_order">10</field>
+    </record>
 
-        <record id="trip_purpose_delivery" model="gps.trip.purpose">
+    <record id="trip_purpose_delivery" model="gps.trip.purpose">
             <field name="external_id">2</field>
             <field name="code">DELIVERY</field>
             <field name="name_uk">Доставка вантажу</field>
@@ -54,6 +53,5 @@
             <field name="description">Інша мета поїздки</field>
             <field name="is_active" eval="True"/>
             <field name="sort_order">99</field>
-        </record>
-    </data>
+    </record>
 </odoo>

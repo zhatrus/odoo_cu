@@ -17,7 +17,6 @@ class FleetVehicle(models.Model):
         help="Serial number of GPS tracker",
     )
     fuel_card_number = fields.Char(
-        string="Fuel Card Number",
         size=20,
         help="Fuel card number for transaction tracking",
     )
@@ -37,19 +36,16 @@ class FleetVehicle(models.Model):
     )
 
     current_latitude = fields.Float(
-        string="Current Latitude",
         compute="_compute_current_position",
         store=False,
         digits=(10, 7),
     )
     current_longitude = fields.Float(
-        string="Current Longitude",
         compute="_compute_current_position",
         store=False,
         digits=(10, 7),
     )
     last_position_time = fields.Datetime(
-        string="Last Position Time",
         compute="_compute_current_position",
         store=False,
     )

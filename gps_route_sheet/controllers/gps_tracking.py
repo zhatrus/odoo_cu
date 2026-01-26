@@ -1,5 +1,3 @@
-import json
-
 from odoo import http
 from odoo.http import request
 
@@ -37,7 +35,9 @@ class GpsTrackingController(http.Controller):
                 )
         return result
 
-    @http.route("/gps/tracking/vehicle/<int:vehicle_id>", type="json", auth="user")
+    @http.route(
+        "/gps/tracking/vehicle/<int:vehicle_id>", type="json", auth="user"
+    )
     def get_vehicle_details(self, vehicle_id, **kwargs):
         """Get detailed GPS information for a specific vehicle."""
         vehicle = request.env["fleet.vehicle"].browse(vehicle_id)

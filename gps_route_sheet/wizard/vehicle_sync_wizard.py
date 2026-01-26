@@ -1,4 +1,4 @@
-from odoo import fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -24,7 +24,6 @@ class VehicleSyncWizard(models.TransientModel):
         readonly=True,
     )
     result_message = fields.Text(
-        string="Result",
         readonly=True,
     )
     state = fields.Selection(
@@ -44,7 +43,7 @@ class VehicleSyncWizard(models.TransientModel):
             vehicles_data = gps_service.fetch_vehicles()
 
             if not vehicles_data:
-                raise UserError("No vehicles found in GPS database.")
+                raise UserError(_("No vehicles found in GPS database."))
 
             created_count = 0
             updated_count = 0

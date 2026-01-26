@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Action to open Vehicle Sync Wizard -->
-    <record id="action_vehicle_sync_wizard" model="ir.actions.act_window">
-        <field name="name">Sync Vehicles from GPS</field>
-        <field name="res_model">vehicle.sync.wizard</field>
-        <field name="view_mode">form</field>
-        <field name="target">new</field>
-    </record>
-
-    <!-- Menu item under Fleet for Sync Wizard -->
-    <menuitem
-        id="menu_vehicle_sync_wizard"
-        name="Sync Vehicles from GPS"
-        parent="fleet.fleet_vehicles"
-        action="action_vehicle_sync_wizard"
-        sequence="99"/>
-
     <!-- Add GPS fields to fleet.vehicle form view -->
     <record id="view_fleet_vehicle_form_gps" model="ir.ui.view">
         <field name="name">fleet.vehicle.form.gps</field>

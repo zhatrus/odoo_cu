@@ -1,6 +1,6 @@
 import psycopg2
 
-from odoo import models
+from odoo import _, models
 from odoo.exceptions import UserError
 
 
@@ -16,7 +16,9 @@ class GpsDbService(models.AbstractModel):
         user = config.get_param("gps_route_sheet.db_user")
         password = config.get_param("gps_route_sheet.db_password")
         if not all([host, port, dbname, user, password]):
-            raise UserError("GPS database connection is not configured.")
+            raise UserError(
+                _("GPS database connection is not configured.")
+            )
         return {
             "host": host,
             "port": int(port),
@@ -82,59 +84,6 @@ class GpsDbService(models.AbstractModel):
                 speed,
                 timestamp,
                 satellites,
-                odometer
-            FROM tracker_positions
-            WHERE imei = %s
-            ORDER BY timestamp DESC
-            LIMIT 1
-        """
-        with psycopg2.connect(**params) as conn:
-            with conn.cursor() as cursor:
-                cursor.execute(query, (imei,))
-                row = cursor.fetchone()
-                if row:
-                    return {
-                        "latitude": row[0],
-                        "longitude": row[1],
-                        "speed": row[2],
-                        "timestamp": row[3],
-                        "satellites": row[4],
-                        "odometer": row[5],
-                    }
-                return None
-
-    def fetch_vehicles(self):
-        """Fetch all vehicles from PostgreSQL database."""
-        params = self._get_db_params()
-        query = """
-            SELECT
-                id,
-                imei,
-                s_n,
-                reg_number,
-                vehicle_model,
-                fuel_card_number,
-                fuel_norm_l_100km,
-                sim_number,
-                alias
-            FROM vehicles
-            ORDER BY reg_number
-        """
-        with psycopg2.connect(**params) as conn:
-            with conn.cursor() as cursor:
-                cursor.execute(query)
-                return cursor.fetchall()
-
-    def fetch_last_position(self, imei):
-        """Fetch last GPS position for a vehicle by IMEI."""
-        params = self._get_db_params()
-        query = """
-            SELECT
-                latitude,
-                longitude,
-                speed,
-                timestamp,
-                satellites,
                 angle,
                 odometer,
                 ignition,
@@ -163,6 +112,28 @@ class GpsDbService(models.AbstractModel):
                         "battery": row[9],
                     }
                 return None
+
+    def fetch_vehicles(self):
+        """Fetch all vehicles from PostgreSQL database."""
+        params = self._get_db_params()
+        query = """
+            SELECT
+                id,
+                imei,
+                s_n,
+                reg_number,
+                vehicle_model,
+                fuel_card_number,
+                fuel_norm_l_100km,
+                sim_number,
+                alias
+            FROM vehicles
+            ORDER BY reg_number
+        """
+        with psycopg2.connect(**params) as conn:
+            with conn.cursor() as cursor:
+                cursor.execute(query)
+                return cursor.fetchall()
 
     def fetch_all_positions(self):
         """Fetch last GPS positions for all vehicles."""
