@@ -120,7 +120,7 @@
     <record id="action_fleet_vehicle_gps_dashboard" model="ir.actions.act_window">
         <field name="name">GPS Fleet Dashboard</field>
         <field name="res_model">fleet.vehicle</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('imei', '!=', False)]</field>
         <field name="context">{}</field>
         <field name="view_id" ref="view_fleet_vehicle_gps_dashboard_kanban"/>
