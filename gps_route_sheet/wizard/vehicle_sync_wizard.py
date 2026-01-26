@@ -33,7 +33,8 @@ class VehicleSyncWizard(models.TransientModel):
         default="draft",
     )
 
-    def action_sync_vehicles(self):  # pylint: disable=too-many-locals
+    # pylint: disable=too-many-locals
+    def action_sync_vehicles(self):
         """Synchronize vehicles from PostgreSQL database."""
         self.ensure_one()
 
