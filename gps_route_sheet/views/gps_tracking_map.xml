@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <!-- GPS Tracking Map Template -->
-    <template id="gps_tracking_map" name="GPS Fleet Tracking Map" website="True">
+    <template id="gps_tracking_map" name="GPS Fleet Tracking Map">
         <t t-call="web.layout">
             <t t-set="head">
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
