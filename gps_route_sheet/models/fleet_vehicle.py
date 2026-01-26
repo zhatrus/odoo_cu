@@ -79,12 +79,11 @@ class FleetVehicle(models.Model):
         digits=(5, 1),
         help="Direction of movement in degrees (0-360)",
     )
-    current_odometer = fields.Float(
+    current_odometer = fields.Integer(
         string="GPS Odometer (km)",
         compute="_compute_current_position",
         store=False,
-        digits=(10, 2),
-        help="Odometer reading from GPS tracker",
+        help="Current odometer reading from GPS tracker",
     )
     current_ignition = fields.Boolean(
         string="Ignition Status",
@@ -107,11 +106,11 @@ class FleetVehicle(models.Model):
         help="Vehicle battery voltage",
     )
     current_device_battery = fields.Float(
-        string="GPS Device Battery (%)",
+        string="GPS Device Battery (V)",
         compute="_compute_current_position",
         store=False,
-        digits=(5, 1),
-        help="GPS tracker device battery percentage",
+        digits=(4, 2),
+        help="GPS tracker device battery voltage",
     )
 
     @api.depends("imei")
@@ -210,4 +209,27 @@ class FleetVehicle(models.Model):
                 "message": f"Synced odometers for {len(vehicles)} vehicles",
                 "type": "success",
             },
+        }
+
+    def action_open_google_maps(self):
+        """Open Google Maps with current GPS coordinates."""
+        self.ensure_one()
+        if not self.current_latitude or not self.current_longitude:
+            return {
+                "type": "ir.actions.client",
+                "tag": "display_notification",
+                "params": {
+                    "title": "No GPS Data",
+                    "message": "No GPS coordinates available for this vehicle",
+                    "type": "warning",
+                },
+            }
+        url = (
+            f"https://www.google.com/maps/search/?api=1&"
+            f"query={self.current_latitude},{self.current_longitude}"
+        )
+        return {
+            "type": "ir.actions.act_url",
+            "url": url,
+            "target": "new",
         }

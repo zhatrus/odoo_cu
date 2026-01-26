@@ -76,7 +76,7 @@
                                             </div>
                                             <div>
                                                 <i class="fa fa-battery-half"/> 
-                                                GPS: <field name="current_device_battery"/>%
+                                                GPS: <field name="current_device_battery"/>V
                                             </div>
                                             <div>
                                                 <i class="fa fa-satellite"/> 
@@ -169,6 +169,12 @@ action = records.action_sync_odometer()
                             <field name="current_longitude"/>
                             <field name="last_position_time"/>
                             <field name="gps_status"/>
+                            <button name="action_open_google_maps" 
+                                    type="object" 
+                                    string="Open in Google Maps" 
+                                    icon="fa-map-marker"
+                                    class="btn-link"
+                                    invisible="current_latitude == 0 or current_longitude == 0"/>
                         </group>
                         <group string="Movement">
                             <field name="current_speed"/>

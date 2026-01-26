@@ -109,14 +109,7 @@ class VehicleSyncWizard(models.TransientModel):
                 f"- Total processed: {len(vehicles_data)}"
             )
 
-            self.write(
-                {
-                    "vehicle_count": len(vehicles_data),
-                    "result_message": result_msg,
-                    "state": "done",
-                }
-            )
-
+            # Show notification and close wizard
             return {
                 "type": "ir.actions.client",
                 "tag": "display_notification",
@@ -125,6 +118,7 @@ class VehicleSyncWizard(models.TransientModel):
                     "message": result_msg,
                     "type": "success",
                     "sticky": False,
+                    "next": {"type": "ir.actions.act_window_close"},
                 },
             }
 

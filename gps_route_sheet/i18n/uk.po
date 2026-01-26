@@ -277,8 +277,8 @@ msgstr "Батарея автомобіля (В)"
 
 #. module: gps_route_sheet
 #: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_device_battery
-msgid "GPS Device Battery (%)"
-msgstr "Батарея GPS пристрою (%)"
+msgid "GPS Device Battery (V)"
+msgstr "Батарея GPS пристрою (V)"
 
 #. module: gps_route_sheet
 #: model:ir.ui.menu,name:gps_route_sheet.menu_fleet_gps_dashboard
