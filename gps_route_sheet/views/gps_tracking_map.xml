@@ -231,7 +231,7 @@
                 <field name="last_position_time"/>
                 <field name="gps_status"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="o_kanban_record_top">
                                 <strong><field name="license_plate"/></strong>

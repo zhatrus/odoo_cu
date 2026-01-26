@@ -23,7 +23,7 @@
                 <field name="gps_status"/>
                 <field name="model_id"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
                             <div class="o_kanban_image_fill_left d-none d-md-block" 
                                  t-attf-style="background-color: #{record.current_ignition.raw_value ? '#28a745' : '#6c757d'};">
