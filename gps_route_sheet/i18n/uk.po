@@ -185,13 +185,9 @@ msgstr "Синхронізація мети поїздок з GPS БД"
 
 #. module: gps_route_sheet
 #: model:ir.actions.act_window,name:gps_route_sheet.action_trip_purpose_sync_wizard
-msgid "Sync Trip Purposes from GPS"
-msgstr "Синхронізація мети поїздок з GPS"
-
-#. module: gps_route_sheet
 #: model:ir.ui.menu,name:gps_route_sheet.menu_trip_purpose_sync_wizard
 msgid "Sync Trip Purposes from GPS"
-msgstr "Синхронізувати цілі поїздок з GPS"
+msgstr "Синхронізація мети поїздок з GPS"
 
 #. module: gps_route_sheet
 #: model:ir.model.fields,field_description:gps_route_sheet.field_gps_trip_purpose__code
@@ -230,13 +226,9 @@ msgstr "Переглянути мету поїздок"
 
 #. module: gps_route_sheet
 #: model:ir.actions.act_window,name:gps_route_sheet.action_gps_trip_purpose
-msgid "Trip Purposes"
-msgstr "Мета поїздок"
-
-#. module: gps_route_sheet
 #: model:ir.ui.menu,name:gps_route_sheet.menu_gps_trip_purpose
 msgid "Trip Purposes"
-msgstr "Цілі поїздок"
+msgstr "Мета поїздок"
 
 #. module: gps_route_sheet
 #: model:ir.ui.menu,name:gps_route_sheet.menu_gps_root

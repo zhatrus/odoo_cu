@@ -38,7 +38,7 @@ class GpsRouteSheet(models.Model):
                 )
         return records
 
-    def action_import_trips(self, date_from=None, date_to=None):
+    def action_import_trips(self, date_from=None, date_to=None):  # pylint: disable=too-many-locals
         for sheet in self:
             if not sheet.vehicle_id.imei:
                 raise UserError(_("Vehicle IMEI is required to import trips."))
