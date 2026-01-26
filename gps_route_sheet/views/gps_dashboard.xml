@@ -162,7 +162,7 @@ action = records.action_sync_odometer()
         <field name="arch" type="xml">
             <!-- Add GPS Data tab after existing tabs -->
             <xpath expr="//notebook" position="inside">
-                <page string="GPS Live Data" attrs="{'invisible': [('imei', '=', False)]}">
+                <page string="GPS Live Data" invisible="imei == False">
                     <group>
                         <group string="Position">
                             <field name="current_latitude"/>
@@ -193,7 +193,7 @@ action = records.action_sync_odometer()
                                 class="oe_stat_button" 
                                 icon="fa-refresh"
                                 string="Sync Odometer"
-                                attrs="{'invisible': [('imei', '=', False)]}"/>
+                                invisible="imei == False"/>
                     </div>
                 </page>
             </xpath>
