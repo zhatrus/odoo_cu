@@ -22,7 +22,7 @@ class TestGpsDbService(TransactionCase):
     def test_get_db_params(self):
         """Test database parameters retrieval."""
         params = self.gps_service._get_db_params()
-        
+
         self.assertEqual(params["host"], "localhost")
         self.assertEqual(params["port"], 5432)
         self.assertEqual(params["dbname"], "test_db")
