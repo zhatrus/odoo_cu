@@ -22,7 +22,7 @@
                 <field name="last_position_time"/>
                 <field name="gps_status"/>
                 <field name="model_id"/>
-                <templates>
+                <template>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
                             <div class="o_kanban_image_fill_left d-none d-md-block" 
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                     </t>
-                </templates>
+                </template>
             </kanban>
         </field>
     </record>
