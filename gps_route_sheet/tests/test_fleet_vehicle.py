@@ -110,17 +110,32 @@ class TestFleetVehicle(TransactionCase):
 
         self.assertEqual(self.vehicle.odometer, 150000)
 
-    def test_action_open_google_maps(self):
+    @patch("odoo.addons.gps_route_sheet.models.gps_db.GpsDbService.fetch_last_position")
+    def test_action_open_google_maps(self, mock_fetch):
         """Test Google Maps action."""
-        with patch.object(
-            self.vehicle, "current_latitude", 50.4501
-        ), patch.object(self.vehicle, "current_longitude", 30.5234):
-            result = self.vehicle.action_open_google_maps()
+        mock_fetch.return_value = {
+            "latitude": 50.4501,
+            "longitude": 30.5234,
+            "speed": 60.0,
+            "timestamp": "2024-01-26 12:00:00",
+            "satellites": 12,
+            "angle": 180.0,
+            "odometer": 100000.0,
+            "ignition": True,
+            "fuel": 75.0,
+            "battery": 13.5,
+            "device_battery": 4.1,
+        }
+        
+        # Force recompute
+        self.vehicle._compute_current_position()
+        
+        result = self.vehicle.action_open_google_maps()
 
-            self.assertEqual(result["type"], "ir.actions.act_url")
-            self.assertIn("google.com/maps", result["url"])
-            self.assertIn("50.4501", result["url"])
-            self.assertIn("30.5234", result["url"])
+        self.assertEqual(result["type"], "ir.actions.act_url")
+        self.assertIn("google.com/maps", result["url"])
+        self.assertIn("50.4501", result["url"])
+        self.assertIn("30.5234", result["url"])
 
     def test_action_open_google_maps_no_coordinates(self):
         """Test Google Maps action without coordinates."""

@@ -32,10 +32,13 @@ class TestGpsDbService(TransactionCase):
     def test_get_db_params_missing_config(self):
         """Test database parameters with missing configuration."""
         config = self.env["ir.config_parameter"].sudo()
-        config.set_param("gps_route_sheet.db_host", False)
+        # Remove all GPS DB config params
+        config.search([("key", "like", "gps_route_sheet.db_%")]).unlink()
         
-        with self.assertRaises(UserError):
+        with self.assertRaises(UserError) as context:
             self.gps_service._get_db_params()
+        
+        self.assertIn("not configured", str(context.exception))
 
     @patch("psycopg2.connect")
     def test_fetch_last_position(self, mock_connect):
