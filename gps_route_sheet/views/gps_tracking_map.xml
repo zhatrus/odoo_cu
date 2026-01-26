@@ -217,18 +217,54 @@
         </t>
     </template>
 
+    <!-- Simplified approach: Create a simple kanban view showing vehicle positions -->
+    <record id="view_fleet_vehicle_tracking_kanban" model="ir.ui.view">
+        <field name="name">fleet.vehicle.tracking.kanban</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="license_plate"/>
+                <field name="imei"/>
+                <field name="current_latitude"/>
+                <field name="current_longitude"/>
+                <field name="last_position_time"/>
+                <field name="gps_status"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_record_top">
+                                <strong><field name="license_plate"/></strong>
+                            </div>
+                            <div class="o_kanban_record_body">
+                                <div>IMEI: <field name="imei"/></div>
+                                <div>Status: <field name="gps_status"/></div>
+                                <div>Lat: <field name="current_latitude"/></div>
+                                <div>Lon: <field name="current_longitude"/></div>
+                                <div>Updated: <field name="last_position_time"/></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Action for GPS Tracking -->
+    <record id="action_fleet_vehicle_tracking" model="ir.actions.act_window">
+        <field name="name">Fleet GPS Tracking</field>
+        <field name="res_model">fleet.vehicle</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="domain">[('imei', '!=', False)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" ref="view_fleet_vehicle_tracking_kanban"/>
+    </record>
+
     <!-- Menu Item for GPS Tracking -->
     <menuitem
-        id="menu_gps_tracking_map"
-        name="Fleet Tracking Map"
+        id="menu_fleet_tracking"
+        name="GPS Tracking"
         parent="menu_gps_root"
-        action="action_gps_tracking_map"
+        action="action_fleet_vehicle_tracking"
         sequence="1"/>
-
-    <!-- Action for GPS Tracking Map -->
-    <record id="action_gps_tracking_map" model="ir.actions.act_url">
-        <field name="name">Fleet Tracking Map</field>
-        <field name="url">/gps/tracking/map</field>
-        <field name="target">self</field>
-    </record>
 </odoo>
