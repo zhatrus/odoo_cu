@@ -25,8 +25,9 @@
         "report/gps_route_sheet_report.xml",
     ],
     "demo": [
-        "data/demo_vehicles.xml",
         "data/demo_trip_purposes.xml",
+        "data/demo_vehicles.xml",
+        "data/demo_route_sheets.xml",
     ],
     "images": [
         "static/description/icon.png",

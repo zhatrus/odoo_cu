@@ -28,21 +28,42 @@ odoo-helper server start
 
 ### Крок 3: Встановлення Модуля
 
-**Варіант А: Через UI**
+**⚠️ ВАЖЛИВО: Для демонстрації встановлюйте модуль з demo data!**
+
+**Варіант А: Через UI (з demo data)**
 1. Відкрити браузер: `http://localhost:15069/`
 2. Увійти як адміністратор
-3. Перейти: Apps > Search "GPS Fleet Management"
-4. Натиснути "Install"
+3. Перейти: Settings > Activate the developer mode
+4. Перейти: Apps > Remove "Apps" filter
+5. Search "GPS Fleet Management"
+6. Натиснути "Install"
+7. ✅ Demo data встановиться автоматично
 
-**Варіант Б: Через командний рядок**
+**Варіант Б: Через командний рядок (з demo data)**
 ```bash
-# Встановити модуль
+# Встановити модуль з demo data
 odoo-helper addons install gps_route_sheet
 
-# Або через odoo-bin
+# Або через odoo-bin з явним включенням demo
 /home/mini/odoo/odoo19/venv/bin/python3 /home/mini/odoo/odoo19/odoo/odoo-bin \
   -c /home/mini/odoo/odoo19/conf/odoo.conf \
-  -d odoo19 -i gps_route_sheet --stop-after-init
+  -d odoo19 -i gps_route_sheet --without-demo=False --stop-after-init
+```
+
+**Що включає Demo Data:**
+- ✅ 3 тестові транспортні засоби (Ford Focus, Toyota Camry, VW Passat)
+- ✅ 3 маршрутні листи з різними статусами
+- ✅ 10+ тестових поїздок з реальними маршрутами
+- ✅ Цілі поїздок (Ділова поїздка, Доставка, Сервіс, Зустріч)
+- ✅ GPS дані (IMEI, паливні картки, норми витрат)
+
+**Якщо модуль вже встановлено БЕЗ demo data:**
+```bash
+# Видалити модуль
+odoo-helper addons uninstall gps_route_sheet
+
+# Встановити заново з demo data
+odoo-helper addons install gps_route_sheet
 ```
 
 ### Крок 4: Перевірка Встановлення

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!-- Demo Route Sheets -->
+    <record id="route_sheet_demo_1" model="gps.route.sheet">
+        <field name="vehicle_id" ref="vehicle_demo_1"/>
+        <field name="date_from" eval="(DateTime.now() - timedelta(days=7)).strftime('%Y-%m-%d')"/>
+        <field name="date_to" eval="(DateTime.now() - timedelta(days=1)).strftime('%Y-%m-%d')"/>
+        <field name="driver_name">Іванов Іван Іванович</field>
+        <field name="state">draft</field>
+    </record>
+
+    <record id="route_sheet_demo_2" model="gps.route.sheet">
+        <field name="vehicle_id" ref="vehicle_demo_2"/>
+        <field name="date_from" eval="(DateTime.now() - timedelta(days=14)).strftime('%Y-%m-%d')"/>
+        <field name="date_to" eval="(DateTime.now() - timedelta(days=8)).strftime('%Y-%m-%d')"/>
+        <field name="driver_name">Петренко Петро Петрович</field>
+        <field name="state">confirmed</field>
+    </record>
+
+    <record id="route_sheet_demo_3" model="gps.route.sheet">
+        <field name="vehicle_id" ref="vehicle_demo_3"/>
+        <field name="date_from" eval="(DateTime.now() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+        <field name="date_to" eval="DateTime.now().strftime('%Y-%m-%d')"/>
+        <field name="driver_name">Сидоренко Сидір Сидорович</field>
+        <field name="state">draft</field>
+    </record>
+
+    <!-- Demo Route Trips for Route Sheet 1 -->
+    <record id="route_trip_demo_1_1" model="gps.route.trip">
+        <field name="route_sheet_id" ref="route_sheet_demo_1"/>
+        <field name="trip_date" eval="(DateTime.now() - timedelta(days=7)).strftime('%Y-%m-%d')"/>
+        <field name="route_description">Київ - Бориспіль - Київ</field>
+        <field name="trip_purpose_id" ref="demo_trip_purpose_business"/>
+        <field name="in_city_km">45.5</field>
+        <field name="outside_city_km">38.2</field>
+        <field name="total_km">83.7</field>
+        <field name="fuel_liters">6.8</field>
+        <field name="driver_name">Іванов Іван Іванович</field>
+    </record>
+
+    <record id="route_trip_demo_1_2" model="gps.route.trip">
+        <field name="route_sheet_id" ref="route_sheet_demo_1"/>
+        <field name="trip_date" eval="(DateTime.now() - timedelta(days=6)).strftime('%Y-%m-%d')"/>
+        <field name="route_description">Київ - Вишневе - Київ</field>
+        <field name="trip_purpose_id" ref="demo_trip_purpose_delivery"/>
+        <field name="in_city_km">28.3</field>
+        <field name="outside_city_km">15.7</field>
+        <field name="total_km">44.0</field>
+        <field name="fuel_liters">3.5</field>
+        <field name="driver_name">Іванов Іван Іванович</field>
+    </record>
+
+    <record id="route_trip_demo_1_3" model="gps.route.trip">
+        <field name="route_sheet_id" ref="route_sheet_demo_1"/>
+        <field name="trip_date" eval="(DateTime.now() - timedelta(days=5)).strftime('%Y-%m-%d')"/>
+        <field name="route_description">Київ - Бровари - Київ</field>
+        <field name="trip_purpose_id" ref="demo_trip_purpose_service"/>
+        <field name="in_city_km">35.2</field>
+        <field name="outside_city_km">22.8</field>
+        <field name="total_km">58.0</field>
+        <field name="fuel_liters">4.6</field>
+        <field name="driver_name">Іванов Іван Іванович</field>
+    </record>
+
+    <!-- Demo Route Trips for Route Sheet 2 -->
+    <record id="route_trip_demo_2_1" model="gps.route.trip">
+        <field name="route_sheet_id" ref="route_sheet_demo_2"/>
+        <field name="trip_date" eval="(DateTime.now() - timedelta(days=14)).strftime('%Y-%m-%d')"/>
+        <field name="route_description">Київ - Одеса - Київ</field>
+        <field name="trip_purpose_id" ref="demo_trip_purpose_business"/>
+        <field name="in_city_km">85.5</field>
+        <field name="outside_city_km">392.3</field>
+        <field name="total_km">477.8</field>
+        <field name="fuel_liters">39.2</field>
+        <field name="driver_name">Петренко Петро Петрович</field>
+    </record>
+
+    <record id="route_trip_demo_2_2" model="gps.route.trip">
+        <field name="route_sheet_id" ref="route_sheet_demo_2"/>
+        <field name="trip_date" eval="(DateTime.now() - timedelta(days=12)).strftime('%Y-%m-%d')"/>
+        <field name="route_description">Київ - Житомир - Київ</field>
+        <field name="trip_purpose_id" ref="demo_trip_purpose_meeting"/>
+        <field name="in_city_km">52.3</field>
+        <field name="outside_city_km">178.7</field>
+        <field name="total_km">231.0</field>
+        <field name="fuel_liters">18.9</field>
+        <field name="driver_name">Петренко Петро Петрович</field>
+    </record>
+
+    <!-- Demo Route Trips for Route Sheet 3 -->
+    <record id="route_trip_demo_3_1" model="gps.route.trip">
+        <field name="route_sheet_id" ref="route_sheet_demo_3"/>
+        <field name="trip_date" eval="(DateTime.now() - timedelta(days=3)).strftime('%Y-%m-%d')"/>
+        <field name="route_description">Київ - Ірпінь - Київ</field>
+        <field name="trip_purpose_id" ref="demo_trip_purpose_service"/>
+        <field name="in_city_km">42.8</field>
+        <field name="outside_city_km">18.2</field>
+        <field name="total_km">61.0</field>
+        <field name="fuel_liters">5.5</field>
+        <field name="driver_name">Сидоренко Сидір Сидорович</field>
+    </record>
+
+    <record id="route_trip_demo_3_2" model="gps.route.trip">
+        <field name="route_sheet_id" ref="route_sheet_demo_3"/>
+        <field name="trip_date" eval="(DateTime.now() - timedelta(days=2)).strftime('%Y-%m-%d')"/>
+        <field name="route_description">Київ - Васильків - Київ</field>
+        <field name="trip_purpose_id" ref="demo_trip_purpose_delivery"/>
+        <field name="in_city_km">38.5</field>
+        <field name="outside_city_km">25.5</field>
+        <field name="total_km">64.0</field>
+        <field name="fuel_liters">5.8</field>
+        <field name="driver_name">Сидоренко Сидір Сидорович</field>
+    </record>
+
+    <record id="route_trip_demo_3_3" model="gps.route.trip">
+        <field name="route_sheet_id" ref="route_sheet_demo_3"/>
+        <field name="trip_date" eval="(DateTime.now() - timedelta(days=1)).strftime('%Y-%m-%d')"/>
+        <field name="route_description">Київ - Обухів - Київ</field>
+        <field name="trip_purpose_id" ref="demo_trip_purpose_business"/>
+        <field name="in_city_km">32.7</field>
+        <field name="outside_city_km">28.3</field>
+        <field name="total_km">61.0</field>
+        <field name="fuel_liters">5.6</field>
+        <field name="driver_name">Сидоренко Сидір Сидорович</field>
+    </record>
+</odoo>
