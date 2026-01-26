@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 
@@ -14,7 +14,6 @@ class VehicleSyncWizard(models.TransientModel):
             ("update_existing", "Update Existing Vehicles"),
             ("create_and_update", "Create New and Update Existing"),
         ],
-        string="Sync Mode",
         default="create_and_update",
         required=True,
         help="Choose how to synchronize vehicles from GPS database",
@@ -74,15 +73,22 @@ class VehicleSyncWizard(models.TransientModel):
                     "imei": imei,
                     "gps_tracker_sn": s_n,
                     "license_plate": reg_number,
-                    "model_id": self._get_or_create_vehicle_model(vehicle_model),
+                    "model_id": self._get_or_create_vehicle_model(
+                        vehicle_model
+                    ),
                     "fuel_card_number": fuel_card_number,
-                    "fuel_norm_l_100km": float(fuel_norm) if fuel_norm else 0.0,
+                    "fuel_norm_l_100km": (
+                        float(fuel_norm) if fuel_norm else 0.0
+                    ),
                     "sim_number": sim_number,
                     "gps_alias": alias,
                 }
 
                 if existing_vehicle:
-                    if self.sync_mode in ("update_existing", "create_and_update"):
+                    if self.sync_mode in (
+                        "update_existing",
+                        "create_and_update",
+                    ):
                         existing_vehicle.write(vehicle_vals)
                         updated_count += 1
                     else:
@@ -136,7 +142,11 @@ class VehicleSyncWizard(models.TransientModel):
         )
         if not vehicle_model:
             # Extract brand from model_name (e.g., "Ford/Focus" -> "Ford")
-            brand_name = model_name.split("/")[0] if "/" in model_name else "Unknown"
+            brand_name = (
+                model_name.split("/")[0]
+                if "/" in model_name
+                else "Unknown"
+            )
 
             # Get or create brand
             brand = self.env["fleet.vehicle.model.brand"].search(

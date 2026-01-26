@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -32,13 +32,18 @@ class GpsRouteSheet(models.Model):
         records = super().create(vals_list)
         for record in records:
             if record.name == "/":
-                record.name = f"RS/{record.vehicle_id.display_name}/{record.date_from}"
+                record.name = (
+                    f"RS/{record.vehicle_id.display_name}/"
+                    f"{record.date_from}"
+                )
         return records
 
     def action_import_trips(self, date_from=None, date_to=None):
         for sheet in self:
             if not sheet.vehicle_id.imei:
-                raise UserError("Vehicle IMEI is required to import trips.")
+                raise UserError(
+                _("Vehicle IMEI is required to import trips.")
+            )
             start = date_from or sheet.date_from
             end = date_to or sheet.date_to
             rows = self.env["gps.db.service"].fetch_trips(

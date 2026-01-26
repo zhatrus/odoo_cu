@@ -26,7 +26,14 @@ class TripPurposeSyncWizard(models.TransientModel):
             created = 0
             updated = 0
             for row in rows:
-                external_id, code, name_uk, description, is_active, sort_order = row
+                (
+                    external_id,
+                    code,
+                    name_uk,
+                    description,
+                    is_active,
+                    sort_order,
+                ) = row
                 vals = {
                     "code": code,
                     "name_uk": name_uk,
