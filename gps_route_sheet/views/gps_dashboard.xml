@@ -5,7 +5,7 @@
         <field name="name">fleet.vehicle.gps.dashboard.kanban</field>
         <field name="model">fleet.vehicle</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_mobile">
+            <kanban class="o_kanban_mobile" sample="1">
                 <field name="id"/>
                 <field name="license_plate"/>
                 <field name="imei"/>
