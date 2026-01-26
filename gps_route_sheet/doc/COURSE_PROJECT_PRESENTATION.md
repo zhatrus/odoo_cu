@@ -552,3 +552,13 @@ def _check_dates(self):
 **Дата презентації:** [Дата]  
 **Автор:** [Ваше Ім'я]  
 **Email:** [Ваш Email]
+
+
+
+cd /home/mini/odoo/odoo19/repositories/odoo_cu/gps_route_sheet
+git pull
+odoo-helper lint pylint .
+odoo-helper lint flake8 .
+odoo-helper server stop
+/home/mini/odoo/odoo19/venv/bin/python3 /home/mini/odoo/odoo19/odoo/odoo-bin -c /home/mini/odoo/odoo19/conf/odoo.conf -d odoo19 -u gps_route_sheet --stop-after-init
+odoo-helper server start

@@ -1,4 +1,9 @@
+import logging
+
 from odoo import api, fields, models
+
+
+_logger = logging.getLogger(__name__)
 
 
 class FleetVehicle(models.Model):
@@ -110,6 +115,7 @@ class FleetVehicle(models.Model):
     )
 
     @api.depends("imei")
+    # pylint: disable=too-many-statements
     def _compute_current_position(self):
         """Compute current GPS position from external database."""
         for vehicle in self:
@@ -185,8 +191,8 @@ class FleetVehicle(models.Model):
                     odometer_km = position.get("odometer", 0.0)
                     if odometer_km > 0:
                         vehicle.odometer = int(odometer_km)
-            except (KeyError, TypeError, ValueError, ConnectionError):
-                pass
+            except (KeyError, TypeError, ValueError, ConnectionError) as exc:
+                _logger.warning("Failed to sync odometer from GPS for vehicle %s: %s", vehicle.display_name, exc)
 
     def action_sync_all_odometers(self):
         """Sync odometers for all vehicles with GPS."""
