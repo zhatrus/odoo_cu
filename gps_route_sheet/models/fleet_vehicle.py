@@ -192,7 +192,11 @@ class FleetVehicle(models.Model):
                     if odometer_km > 0:
                         vehicle.odometer = int(odometer_km)
             except (KeyError, TypeError, ValueError, ConnectionError) as exc:
-                _logger.warning("Failed to sync odometer from GPS for vehicle %s: %s", vehicle.display_name, exc)
+                _logger.warning(
+                    "Failed to sync odometer from GPS for vehicle %s: %s",
+                    vehicle.display_name,
+                    exc,
+                )
 
     def action_sync_all_odometers(self):
         """Sync odometers for all vehicles with GPS."""
