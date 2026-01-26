@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- GPS Dashboard Kanban View -->
+    <record id="view_fleet_vehicle_gps_dashboard_kanban" model="ir.ui.view">
+        <field name="name">fleet.vehicle.gps.dashboard.kanban</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="id"/>
+                <field name="license_plate"/>
+                <field name="imei"/>
+                <field name="current_latitude"/>
+                <field name="current_longitude"/>
+                <field name="current_speed"/>
+                <field name="current_satellites"/>
+                <field name="current_angle"/>
+                <field name="current_odometer"/>
+                <field name="current_ignition"/>
+                <field name="current_fuel_level"/>
+                <field name="current_battery"/>
+                <field name="current_device_battery"/>
+                <field name="last_position_time"/>
+                <field name="gps_status"/>
+                <field name="model_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                            <div class="o_kanban_image_fill_left d-none d-md-block" 
+                                 t-attf-style="background-color: #{record.current_ignition.raw_value ? '#28a745' : '#6c757d'};">
+                                <i class="fa fa-car fa-3x" style="color: white; padding: 20px;"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="license_plate"/>
+                                        </strong>
+                                        <span class="o_kanban_record_subtitle">
+                                            <field name="model_id"/>
+                                        </span>
+                                    </div>
+                                    <div class="o_kanban_record_top_right">
+                                        <span t-if="record.current_ignition.raw_value" 
+                                              class="badge badge-success">
+                                            <i class="fa fa-power-off"/> ON
+                                        </span>
+                                        <span t-else="" class="badge badge-secondary">
+                                            <i class="fa fa-power-off"/> OFF
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div>
+                                                <i class="fa fa-tachometer"/> 
+                                                <strong><field name="current_speed"/> km/h</strong>
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-road"/> 
+                                                <field name="current_odometer"/> km
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-compass"/> 
+                                                <field name="current_angle"/>°
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div>
+                                                <i class="fa fa-tint"/> 
+                                                Fuel: <field name="current_fuel_level"/>%
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-battery-three-quarters"/> 
+                                                Car: <field name="current_battery"/>V
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-battery-half"/> 
+                                                GPS: <field name="current_device_battery"/>%
+                                            </div>
+                                            <div>
+                                                <i class="fa fa-satellite"/> 
+                                                <field name="current_satellites"/> sats
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <small class="text-muted">
+                                            <i class="fa fa-map-marker"/> 
+                                            <field name="current_latitude"/>, 
+                                            <field name="current_longitude"/>
+                                        </small>
+                                    </div>
+                                    <div>
+                                        <small class="text-muted">
+                                            <i class="fa fa-clock-o"/> 
+                                            <field name="last_position_time"/>
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span t-att-class="'badge ' + (record.gps_status.raw_value == 'Active' ? 'badge-success' : 'badge-warning')">
+                                            <field name="gps_status"/>
+                                        </span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="imei" widget="label"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- GPS Dashboard Action -->
+    <record id="action_fleet_vehicle_gps_dashboard" model="ir.actions.act_window">
+        <field name="name">GPS Fleet Dashboard</field>
+        <field name="res_model">fleet.vehicle</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="domain">[('imei', '!=', False)]</field>
+        <field name="context">{}</field>
+        <field name="view_id" ref="view_fleet_vehicle_gps_dashboard_kanban"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No GPS-enabled vehicles found
+            </p>
+            <p>
+                Add GPS trackers to your vehicles to see them here.
+            </p>
+        </field>
+    </record>
+
+    <!-- GPS Dashboard Menu -->
+    <menuitem
+        id="menu_fleet_gps_dashboard"
+        name="GPS Dashboard"
+        parent="menu_gps_root"
+        action="action_fleet_vehicle_gps_dashboard"
+        sequence="0"/>
+
+    <!-- Action for Sync All Odometers -->
+    <record id="action_sync_all_odometers" model="ir.actions.server">
+        <field name="name">Sync All Odometers</field>
+        <field name="model_id" ref="fleet.model_fleet_vehicle"/>
+        <field name="binding_model_id" ref="fleet.model_fleet_vehicle"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = records.action_sync_odometer()
+        </field>
+    </record>
+
+    <!-- Extended Fleet Vehicle Form View with GPS Data -->
+    <record id="view_fleet_vehicle_form_gps_extended" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.gps.extended</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Add GPS Data tab after existing tabs -->
+            <xpath expr="//notebook" position="inside">
+                <page string="GPS Live Data" attrs="{'invisible': [('imei', '=', False)]}">
+                    <group>
+                        <group string="Position">
+                            <field name="current_latitude"/>
+                            <field name="current_longitude"/>
+                            <field name="last_position_time"/>
+                            <field name="gps_status"/>
+                        </group>
+                        <group string="Movement">
+                            <field name="current_speed"/>
+                            <field name="current_angle"/>
+                            <field name="current_odometer"/>
+                            <field name="current_ignition"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Vehicle Status">
+                            <field name="current_fuel_level"/>
+                            <field name="current_battery"/>
+                        </group>
+                        <group string="GPS Device">
+                            <field name="current_satellites"/>
+                            <field name="current_device_battery"/>
+                        </group>
+                    </group>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_sync_odometer" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-refresh"
+                                string="Sync Odometer"
+                                attrs="{'invisible': [('imei', '=', False)]}"/>
+                    </div>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

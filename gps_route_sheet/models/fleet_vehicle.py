@@ -54,6 +54,60 @@ class FleetVehicle(models.Model):
         compute="_compute_current_position",
         store=False,
     )
+    current_speed = fields.Float(
+        string="Current Speed (km/h)",
+        compute="_compute_current_position",
+        store=False,
+        digits=(5, 1),
+        help="Current speed from GPS tracker",
+    )
+    current_satellites = fields.Integer(
+        string="GPS Satellites",
+        compute="_compute_current_position",
+        store=False,
+        help="Number of GPS satellites in view",
+    )
+    current_angle = fields.Float(
+        string="Direction (degrees)",
+        compute="_compute_current_position",
+        store=False,
+        digits=(5, 1),
+        help="Direction of movement in degrees (0-360)",
+    )
+    current_odometer = fields.Float(
+        string="GPS Odometer (km)",
+        compute="_compute_current_position",
+        store=False,
+        digits=(10, 2),
+        help="Odometer reading from GPS tracker",
+    )
+    current_ignition = fields.Boolean(
+        string="Ignition Status",
+        compute="_compute_current_position",
+        store=False,
+        help="Engine ignition status from GPS",
+    )
+    current_fuel_level = fields.Float(
+        string="Fuel Level (%)",
+        compute="_compute_current_position",
+        store=False,
+        digits=(5, 1),
+        help="Current fuel level percentage from GPS",
+    )
+    current_battery = fields.Float(
+        string="Vehicle Battery (V)",
+        compute="_compute_current_position",
+        store=False,
+        digits=(4, 2),
+        help="Vehicle battery voltage",
+    )
+    current_device_battery = fields.Float(
+        string="GPS Device Battery (%)",
+        compute="_compute_current_position",
+        store=False,
+        digits=(5, 1),
+        help="GPS tracker device battery percentage",
+    )
 
     @api.depends("imei")
     def _compute_current_position(self):
@@ -64,6 +118,14 @@ class FleetVehicle(models.Model):
                 vehicle.current_longitude = 0.0
                 vehicle.last_position_time = False
                 vehicle.gps_status = "No IMEI"
+                vehicle.current_speed = 0.0
+                vehicle.current_satellites = 0
+                vehicle.current_angle = 0.0
+                vehicle.current_odometer = 0.0
+                vehicle.current_ignition = False
+                vehicle.current_fuel_level = 0.0
+                vehicle.current_battery = 0.0
+                vehicle.current_device_battery = 0.0
                 continue
 
             try:
@@ -73,14 +135,69 @@ class FleetVehicle(models.Model):
                     vehicle.current_latitude = position.get("latitude", 0.0)
                     vehicle.current_longitude = position.get("longitude", 0.0)
                     vehicle.last_position_time = position.get("timestamp")
+                    vehicle.current_speed = position.get("speed", 0.0)
+                    vehicle.current_satellites = position.get("satellites", 0)
+                    vehicle.current_angle = position.get("angle", 0.0)
+                    vehicle.current_odometer = position.get("odometer", 0.0)
+                    vehicle.current_ignition = position.get("ignition", False)
+                    vehicle.current_fuel_level = position.get("fuel", 0.0)
+                    vehicle.current_battery = position.get("battery", 0.0)
+                    vehicle.current_device_battery = position.get(
+                        "device_battery", 0.0
+                    )
                     vehicle.gps_status = "Active"
                 else:
                     vehicle.current_latitude = 0.0
                     vehicle.current_longitude = 0.0
                     vehicle.last_position_time = False
                     vehicle.gps_status = "No Data"
+                    vehicle.current_speed = 0.0
+                    vehicle.current_satellites = 0
+                    vehicle.current_angle = 0.0
+                    vehicle.current_odometer = 0.0
+                    vehicle.current_ignition = False
+                    vehicle.current_fuel_level = 0.0
+                    vehicle.current_battery = 0.0
+                    vehicle.current_device_battery = 0.0
             except (KeyError, TypeError, ValueError, ConnectionError):
                 vehicle.current_latitude = 0.0
                 vehicle.current_longitude = 0.0
                 vehicle.last_position_time = False
                 vehicle.gps_status = "Error"
+                vehicle.current_speed = 0.0
+                vehicle.current_satellites = 0
+                vehicle.current_angle = 0.0
+                vehicle.current_odometer = 0.0
+                vehicle.current_ignition = False
+                vehicle.current_fuel_level = 0.0
+                vehicle.current_battery = 0.0
+                vehicle.current_device_battery = 0.0
+
+    def action_sync_odometer(self):
+        """Sync odometer value from GPS tracker to Odoo."""
+        for vehicle in self:
+            if not vehicle.imei:
+                continue
+            try:
+                gps_service = self.env["gps.db.service"]
+                position = gps_service.fetch_last_position(vehicle.imei)
+                if position and position.get("odometer"):
+                    odometer_km = position.get("odometer", 0.0)
+                    if odometer_km > 0:
+                        vehicle.odometer = int(odometer_km)
+            except (KeyError, TypeError, ValueError, ConnectionError):
+                pass
+
+    def action_sync_all_odometers(self):
+        """Sync odometers for all vehicles with GPS."""
+        vehicles = self.search([("imei", "!=", False)])
+        vehicles.action_sync_odometer()
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": "Odometer Sync",
+                "message": f"Synced odometers for {len(vehicles)} vehicles",
+                "type": "success",
+            },
+        }

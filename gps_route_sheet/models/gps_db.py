@@ -88,7 +88,8 @@ class GpsDbService(models.AbstractModel):
                 odometer,
                 ignition,
                 fuel,
-                battery
+                battery,
+                device_battery
             FROM tracker_positions
             WHERE imei = %s
             ORDER BY timestamp DESC
@@ -110,6 +111,7 @@ class GpsDbService(models.AbstractModel):
                         "ignition": row[7],
                         "fuel": row[8],
                         "battery": row[9],
+                        "device_battery": row[10],
                     }
                 return None
 
@@ -150,7 +152,8 @@ class GpsDbService(models.AbstractModel):
                 odometer,
                 ignition,
                 fuel,
-                battery
+                battery,
+                device_battery
             FROM tracker_positions
             ORDER BY imei, timestamp DESC
         """

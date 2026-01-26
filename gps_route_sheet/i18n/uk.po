@@ -239,3 +239,88 @@ msgstr "GPS маршрутні листи"
 #: model:ir.ui.menu,name:gps_route_sheet.menu_gps_route_sheet
 msgid "Route Sheets"
 msgstr "Маршрутні листи"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_speed
+msgid "Current Speed (km/h)"
+msgstr "Поточна швидкість (км/год)"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_satellites
+msgid "GPS Satellites"
+msgstr "GPS супутники"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_angle
+msgid "Direction (degrees)"
+msgstr "Напрямок (градуси)"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_odometer
+msgid "GPS Odometer (km)"
+msgstr "GPS одометр (км)"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_ignition
+msgid "Ignition Status"
+msgstr "Стан запалювання"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_fuel_level
+msgid "Fuel Level (%)"
+msgstr "Рівень палива (%)"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_battery
+msgid "Vehicle Battery (V)"
+msgstr "Батарея автомобіля (В)"
+
+#. module: gps_route_sheet
+#: model:ir.model.fields,field_description:gps_route_sheet.field_fleet_vehicle__current_device_battery
+msgid "GPS Device Battery (%)"
+msgstr "Батарея GPS пристрою (%)"
+
+#. module: gps_route_sheet
+#: model:ir.ui.menu,name:gps_route_sheet.menu_fleet_gps_dashboard
+msgid "GPS Dashboard"
+msgstr "GPS Панель"
+
+#. module: gps_route_sheet
+#: model:ir.actions.act_window,name:gps_route_sheet.action_fleet_vehicle_gps_dashboard
+msgid "GPS Fleet Dashboard"
+msgstr "GPS Панель автопарку"
+
+#. module: gps_route_sheet
+#: model:ir.actions.server,name:gps_route_sheet.action_sync_all_odometers
+msgid "Sync All Odometers"
+msgstr "Синхронізувати всі одометри"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps_extended
+msgid "GPS Live Data"
+msgstr "GPS дані в реальному часі"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps_extended
+msgid "Position"
+msgstr "Позиція"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps_extended
+msgid "Movement"
+msgstr "Рух"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps_extended
+msgid "Vehicle Status"
+msgstr "Стан автомобіля"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps_extended
+msgid "GPS Device"
+msgstr "GPS Пристрій"
+
+#. module: gps_route_sheet
+#: model:ir.ui.view,arch_db:gps_route_sheet.view_fleet_vehicle_form_gps_extended
+msgid "Sync Odometer"
+msgstr "Синхронізувати одометр"
